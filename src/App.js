@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+// import { render } from "@testing-library/react";
 import React, { useState } from "react";
 
 // Bootstrap
@@ -45,7 +45,7 @@ function App() {
     setLoading(true);
     let arrayBuilder = [];
     dArray.map((d) => {
-      fetch(`http://www.omdbapi.com/?i=${d}&apikey=${apiKey}`)
+      fetch(`https://www.omdbapi.com/?i=${d}&apikey=${apiKey}`)
         .then(handleErrors)
         .then((response) => response.json())
         .then((data) => {
@@ -65,20 +65,70 @@ function App() {
     }, 2000);
   };
 
+  const convertDate = (date) => {
+    let dateArray = date.split(" ");
+
+    let month = dateArray[1];
+    let day = dateArray[0];
+    let year = dateArray[2];
+
+    if (month === "Jan") {
+      month = "1";
+      return `${month}/${day}/${year}`;
+    } else if (month === "Feb") {
+      month = "2";
+      return `${month}/${day}/${year}`;
+    } else if (month === "Mar") {
+      month = "3";
+      return `${month}/${day}/${year}`;
+    } else if (month === "Apr") {
+      month = "4";
+      return `${month}/${day}/${year}`;
+    } else if (month === "May") {
+      month = "5";
+      return `${month}/${day}/${year}`;
+    } else if (month === "Jun") {
+      month = "6";
+      return `${month}/${day}/${year}`;
+    } else if (month === "Jul") {
+      month = "7";
+      return `${month}/${day}/${year}`;
+    } else if (month === "Aug") {
+      month = "8";
+      return `${month}/${day}/${year}`;
+    } else if (month === "Sep") {
+      month = "9";
+      return `${month}/${day}/${year}`;
+    } else if (month === "Oct") {
+      month = "10";
+      return `${month}/${day}/${year}`;
+    } else if (month === "Nov") {
+      month = "11";
+      return `${month}/${day}/${year}`;
+    } else if (month === "Dec") {
+      month = "12";
+      return `${month}/${day}/${year}`;
+    }
+  };
+
   const renderData = allData
     ? allData.map((d, i) => {
+        // This takes off the "min" off the end of the string. Requested formatting from Bob
+        const rtString = d.Runtime.substring(0, d.Runtime.length - 3);
+        const date = convertDate(d.Released);
+
         return (
           <tr key={i}>
             <td>{d.imdbID}</td>
             <td>{d.Title}</td>
-            <td>{d.Runtime}</td>
+            <td>{rtString}</td>
             <td>{d.Year}</td>
             <td>{d.Director}</td>
             <td>{d.Actors}</td>
             <td>{d.Poster}</td>
             <td>{d.Language}</td>
             <td>{d.Country}</td>
-            <td>{d.Released}</td>
+            <td>{date}</td>
           </tr>
         );
       })
