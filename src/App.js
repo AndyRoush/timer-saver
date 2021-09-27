@@ -28,7 +28,6 @@ function App() {
     setNoResults("");
     setRespError("");
     const dataArray = inputVal.split(";");
-    // setDataNum(dataArray.length);
     loopIds(dataArray);
   };
 
@@ -56,15 +55,17 @@ function App() {
     setTimeout(function () {
       setLoading(false);
       setAllData(arrayBuilder);
+      console.log(arrayBuilder);
       if (arrayBuilder.length === 0 || arrayBuilder[0].Response === "False") {
         setNoResults("no results found");
         setDataNum("0");
       } else {
         setDataNum(arrayBuilder.length);
       }
-    }, 2000);
+    }, 3000);
   };
 
+  // takes the date given by the API and creates mm/dd/yyyy
   const convertDate = (date) => {
     let dateArray = date.split(" ");
 
@@ -114,8 +115,10 @@ function App() {
   const renderData = allData
     ? allData.map((d, i) => {
         // This takes off the "min" off the end of the string. Requested formatting from Bob
-        const rtString = d.Runtime.substring(0, d.Runtime.length - 3);
-        const date = convertDate(d.Released);
+        const rtString = d.Runtime
+          ? d.Runtime.substring(0, d.Runtime.length - 3)
+          : null;
+        const date = d.Released ? convertDate(d.Released) : null;
 
         return (
           <tr key={i}>
@@ -169,7 +172,7 @@ function App() {
                 <th>Run time</th>
                 <th>Release year</th>
                 <th>Director name</th>
-                <th>Actors (top4)</th>
+                <th>Actors</th>
                 <th>Poster URL</th>
                 <th>Language</th>
                 <th>Country of origin</th>
