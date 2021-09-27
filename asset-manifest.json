@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/timer-saver/static/css/main.0c7a590c.chunk.css",
-    "main.js": "/timer-saver/static/js/main.7854b8af.chunk.js",
-    "main.js.map": "/timer-saver/static/js/main.7854b8af.chunk.js.map",
+    "main.css": "/timer-saver/static/css/main.170751d4.chunk.css",
+    "main.js": "/timer-saver/static/js/main.ffefe930.chunk.js",
+    "main.js.map": "/timer-saver/static/js/main.ffefe930.chunk.js.map",
     "runtime-main.js": "/timer-saver/static/js/runtime-main.0d68b74b.js",
     "runtime-main.js.map": "/timer-saver/static/js/runtime-main.0d68b74b.js.map",
     "static/css/2.f2512455.chunk.css": "/timer-saver/static/css/2.f2512455.chunk.css",
@@ -12,14 +12,14 @@
     "static/js/3.d4137333.chunk.js.map": "/timer-saver/static/js/3.d4137333.chunk.js.map",
     "index.html": "/timer-saver/index.html",
     "static/css/2.f2512455.chunk.css.map": "/timer-saver/static/css/2.f2512455.chunk.css.map",
-    "static/css/main.0c7a590c.chunk.css.map": "/timer-saver/static/css/main.0c7a590c.chunk.css.map",
+    "static/css/main.170751d4.chunk.css.map": "/timer-saver/static/css/main.170751d4.chunk.css.map",
     "static/js/2.0aa58277.chunk.js.LICENSE.txt": "/timer-saver/static/js/2.0aa58277.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.0d68b74b.js",
     "static/css/2.f2512455.chunk.css",
     "static/js/2.0aa58277.chunk.js",
-    "static/css/main.0c7a590c.chunk.css",
-    "static/js/main.7854b8af.chunk.js"
+    "static/css/main.170751d4.chunk.css",
+    "static/js/main.ffefe930.chunk.js"
   ]
 }
