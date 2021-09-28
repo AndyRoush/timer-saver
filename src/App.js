@@ -25,6 +25,7 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Set these 2 to emptry strings. If you don't, the errors will persist through the next search. 
     setNoResults("");
     setRespError("");
     const dataArray = inputVal.split(";");
@@ -44,7 +45,7 @@ function App() {
     setLoading(true);
     let arrayBuilder = [];
     dArray.map((d) => {
-      fetch(`https://www.omdbapi.com/?i=${d}&apikey=${apiKey}`)
+      return fetch(`https://www.omdbapi.com/?i=${d}&apikey=${apiKey}`)
         .then(handleErrors)
         .then((response) => response.json())
         .then((data) => {
@@ -114,6 +115,7 @@ function App() {
 
   const renderData = allData
     ? allData.map((d, i) => {
+        console.log(d);
         // This takes off the "min" off the end of the string. Requested formatting from Bob
         const rtString = d.Runtime
           ? d.Runtime.substring(0, d.Runtime.length - 3)
@@ -127,11 +129,13 @@ function App() {
             <td>{rtString}</td>
             <td>{d.Year}</td>
             <td>{d.Director}</td>
+            <td>{d.Writer}</td>
             <td>{d.Actors}</td>
-            <td>{d.Poster}</td>
+            <td>{d.Genre}</td>
             <td>{d.Language}</td>
             <td>{d.Country}</td>
             <td>{date}</td>
+            <td>{d.Poster}</td>
           </tr>
         );
       })
@@ -168,15 +172,17 @@ function App() {
             <thead>
               <tr>
                 <th>IMDB ID</th>
-                <th>Title Name</th>
+                <th>Title</th>
                 <th>Run time</th>
                 <th>Release year</th>
-                <th>Director name</th>
+                <th>Director</th>
+                <th>Writer</th>
                 <th>Actors</th>
-                <th>Poster URL</th>
+                <th>Genre</th>
                 <th>Language</th>
                 <th>Country of origin</th>
                 <th>Release date</th>
+                <th>Poster URL</th>
               </tr>
             </thead>
             <tbody>{renderData}</tbody>
