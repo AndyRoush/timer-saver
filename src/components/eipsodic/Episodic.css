@@ -1,0 +1,13 @@
+.ep-md-img {
+    width: 100px;
+}
+
+.main-display-wrapper {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    gap: 20px
+}
+
+.main-display-wrapper p {
+    margin: 2px 0;
+}
