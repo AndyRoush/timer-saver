@@ -1,25 +1,34 @@
 {
   "files": {
-    "main.css": "/timer-saver/static/css/main.82ee4b07.chunk.css",
-    "main.js": "/timer-saver/static/js/main.476640cb.chunk.js",
-    "main.js.map": "/timer-saver/static/js/main.476640cb.chunk.js.map",
-    "runtime-main.js": "/timer-saver/static/js/runtime-main.0d68b74b.js",
-    "runtime-main.js.map": "/timer-saver/static/js/runtime-main.0d68b74b.js.map",
+    "main.css": "/timer-saver/static/css/main.6306819d.chunk.css",
+    "main.js": "/timer-saver/static/js/main.34353eb0.chunk.js",
+    "main.js.map": "/timer-saver/static/js/main.34353eb0.chunk.js.map",
+    "runtime-main.js": "/timer-saver/static/js/runtime-main.70ee8378.js",
+    "runtime-main.js.map": "/timer-saver/static/js/runtime-main.70ee8378.js.map",
     "static/css/2.f2512455.chunk.css": "/timer-saver/static/css/2.f2512455.chunk.css",
-    "static/js/2.0aa58277.chunk.js": "/timer-saver/static/js/2.0aa58277.chunk.js",
-    "static/js/2.0aa58277.chunk.js.map": "/timer-saver/static/js/2.0aa58277.chunk.js.map",
-    "static/js/3.d4137333.chunk.js": "/timer-saver/static/js/3.d4137333.chunk.js",
-    "static/js/3.d4137333.chunk.js.map": "/timer-saver/static/js/3.d4137333.chunk.js.map",
+    "static/js/2.a587419d.chunk.js": "/timer-saver/static/js/2.a587419d.chunk.js",
+    "static/js/2.a587419d.chunk.js.map": "/timer-saver/static/js/2.a587419d.chunk.js.map",
+    "static/js/3.e848bec2.chunk.js": "/timer-saver/static/js/3.e848bec2.chunk.js",
+    "static/js/3.e848bec2.chunk.js.map": "/timer-saver/static/js/3.e848bec2.chunk.js.map",
+    "static/js/4.60c9e983.chunk.js": "/timer-saver/static/js/4.60c9e983.chunk.js",
+    "static/js/4.60c9e983.chunk.js.map": "/timer-saver/static/js/4.60c9e983.chunk.js.map",
+    "static/js/5.acdf5578.chunk.js": "/timer-saver/static/js/5.acdf5578.chunk.js",
+    "static/js/5.acdf5578.chunk.js.map": "/timer-saver/static/js/5.acdf5578.chunk.js.map",
+    "static/js/6.fe2f0923.chunk.js": "/timer-saver/static/js/6.fe2f0923.chunk.js",
+    "static/js/6.fe2f0923.chunk.js.map": "/timer-saver/static/js/6.fe2f0923.chunk.js.map",
     "index.html": "/timer-saver/index.html",
     "static/css/2.f2512455.chunk.css.map": "/timer-saver/static/css/2.f2512455.chunk.css.map",
-    "static/css/main.82ee4b07.chunk.css.map": "/timer-saver/static/css/main.82ee4b07.chunk.css.map",
-    "static/js/2.0aa58277.chunk.js.LICENSE.txt": "/timer-saver/static/js/2.0aa58277.chunk.js.LICENSE.txt"
+    "static/css/main.6306819d.chunk.css.map": "/timer-saver/static/css/main.6306819d.chunk.css.map",
+    "static/js/2.a587419d.chunk.js.LICENSE.txt": "/timer-saver/static/js/2.a587419d.chunk.js.LICENSE.txt",
+    "static/js/3.e848bec2.chunk.js.LICENSE.txt": "/timer-saver/static/js/3.e848bec2.chunk.js.LICENSE.txt",
+    "static/js/4.60c9e983.chunk.js.LICENSE.txt": "/timer-saver/static/js/4.60c9e983.chunk.js.LICENSE.txt",
+    "static/js/5.acdf5578.chunk.js.LICENSE.txt": "/timer-saver/static/js/5.acdf5578.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.0d68b74b.js",
+    "static/js/runtime-main.70ee8378.js",
     "static/css/2.f2512455.chunk.css",
-    "static/js/2.0aa58277.chunk.js",
-    "static/css/main.82ee4b07.chunk.css",
-    "static/js/main.476640cb.chunk.js"
+    "static/js/2.a587419d.chunk.js",
+    "static/css/main.6306819d.chunk.css",
+    "static/js/main.34353eb0.chunk.js"
   ]
 }
