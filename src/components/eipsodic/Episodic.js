@@ -125,7 +125,7 @@ function App() {
             <p>
               <b>IMDB ID</b>:{" "}
               <a
-                href={`https://www.imdb.com/title/${seriesResult.id}/`}
+                href={`https://www.imdb.com/title/${seriesResult.id}/releaseinfo?ref_=tt_ov_rdat`}
                 rel="noopener noreferrer"
                 target="_blank"
               >

@@ -6,15 +6,15 @@ import "./App.css";
 
 // components
 import OmdbApi from "./components/omdb-api/OmdbApi";
-import ImdbApi from "./components/imdb-api/ImdbApi";
+// import ImdbApi from "./components/imdb-api/ImdbApi";
 import Episodic from "./components/eipsodic/Episodic";
 
 function App() {
   return (
     <div className="App">
-      {/* <OmdbApi /> */}
+      <OmdbApi />
       {/* <ImdbApi /> */}
-      <Episodic />
+      {/* <Episodic /> */}
     </div>
   );
 }

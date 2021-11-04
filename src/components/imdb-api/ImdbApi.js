@@ -48,7 +48,7 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-function App() {
+const ImdbApi = () => {
   const apiKey = process.env.REACT_APP_IMDB_KEY;
 
   // request ops for IMDB API
@@ -56,16 +56,6 @@ function App() {
     method: "GET",
     redirect: "follow",
   };
-
-  useEffect(() => {
-    fetch(
-      `https://imdb-api.com/en/API/SearchAll/${apiKey}/tt1439629`,
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-  });
 
   const [inputVal, setInputVal] = useState("");
   const [allData, setAllData] = useState([]);
@@ -96,6 +86,34 @@ function App() {
 
   // This function takes the array of IDs, loops through and makes an API call for each iteration then stores it in an array. That new array will be set to the
   // state object which we will use to iterate over to display the data to the user.
+  // const loopIds = (dArray) => {
+  //   setLoading(true);
+  //   let arrayBuilder = [];
+  //   dArray.map((d) => {
+  //     return fetch(
+  //       `https://imdb-api.com/en/API/Title/${apiKey}/${d}`,
+  //       requestOptions
+  //     )
+  //       .then(handleErrors)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         arrayBuilder.push(data);
+  //       })
+  //       .catch((error) => console.log(error));
+  //   });
+
+  //   setTimeout(function () {
+  //     setLoading(false);
+  //     setAllData(arrayBuilder);
+  //     console.log(arrayBuilder);
+  //     if (arrayBuilder.length === 0 || arrayBuilder[0].Response === "False") {
+  //       setNoResults("no results found");
+  //       setDataNum("0");
+  //     } else {
+  //       setDataNum(arrayBuilder.length);
+  //     }
+  //   }, 3000);
+  // };
   const loopIds = (dArray) => {
     setLoading(true);
     let arrayBuilder = [];
@@ -112,6 +130,10 @@ function App() {
         .catch((error) => console.log(error));
     });
 
+    // await fullArray;
+
+    // setAllTheData(arrayBuilder);
+
     setTimeout(function () {
       setLoading(false);
       setAllData(arrayBuilder);
@@ -124,6 +146,19 @@ function App() {
       }
     }, 3000);
   };
+
+  // const setAllTheData = (arr) => {
+  //   console.log(arr);
+  //   setLoading(false);
+  //   setAllData(arr);
+  //   console.log(arr);
+  //   if (arr.length === 0 || arr[0].Response === "False") {
+  //     setNoResults("no results found");
+  //     setDataNum("0");
+  //   } else {
+  //     setDataNum(arr.length);
+  //   }
+  // };
 
   // takes the date given by the API and creates mm/dd/yyyy
   const convertDate = (date) => {
@@ -175,26 +210,30 @@ function App() {
   const renderMaterialData = allData
     ? allData.map((d, i) => {
         console.log(d);
-        // This takes off the "min" off the end of the string. Requested formatting from Bob
-        const rtString = d.Runtime
-          ? d.Runtime.substring(0, d.Runtime.length - 3)
-          : null;
-        const date = d.Released ? convertDate(d.Released) : null;
-
+        const date = d.releaseDate ? convertDate(d.releaseDate) : null;
+        // let theActor = d.actorList[0];
+        // function returnActors() {
+        //   if (d.actorList.length > 0) {
+        //     d.actorList.map((item, i) => {
+        //       console.log(i + item.name);
+        //       return i;
+        //     });
+        //   } else return;
+        // }
         return {
-          posterImg: d.Poster,
-          imdbId: d.imdbID,
-          title: d.Title,
-          runtime: rtString,
-          releaseYear: d.Year,
-          director: d.Director,
-          writer: d.Writer,
-          actors: d.Actors,
-          genre: d.Genre,
-          language: d.Language,
-          country: d.Country,
-          releaseDate: date,
-          posterUrl: d.Poster,
+          posterImg: d.image,
+          imdbId: d.id,
+          title: d.title,
+          runtime: d.runtimeMins,
+          releaseYear: d.year,
+          director: d.directors,
+          writer: d.writers,
+          actors: "actors",
+          genre: d.genres,
+          language: d.languages,
+          country: d.countries,
+          releaseDate: d.releaseDate,
+          posterUrl: d.image,
         };
       })
     : null;
@@ -278,6 +317,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
-export default App;
+export default ImdbApi;
