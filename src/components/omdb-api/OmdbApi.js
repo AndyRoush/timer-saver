@@ -69,12 +69,11 @@ function OmdbApi() {
     setRespError("");
     const dataArray = inputVal.split(";");
     loopIds(dataArray);
-    // setAllTheData(arrayBuilder)
   };
 
   function handleErrors(response) {
     setRespError(response.Error);
-    // console.log(response.Error);
+    console.log(response.Error);
     if (response.Error) throw Error(response.Error);
     if (!response.ok) throw Error(response.statusText);
     return response;
@@ -85,17 +84,7 @@ function OmdbApi() {
   const loopIds = (dArray) => {
     setLoading(true);
     let arrayBuilder = [];
-    // for (let i = 0; i < dArray.length; i++) {
-    //   console.log(dArray[i]);
-    //   let imdbID = dArray[i]
-    //   fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`)
-    //     .then(handleErrors)
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       arrayBuilder.push(data);
-    //     })
-    //     .catch((error) => console.log("error: " + error));
-    // }
+
     dArray.map((d) => {
       return fetch(`https://www.omdbapi.com/?i=${d}&apikey=${apiKey}`)
         .then(handleErrors)
@@ -109,7 +98,7 @@ function OmdbApi() {
 
     setTimeout(function () {
       setLoading(false);
-      console.log(arrayBuilder);
+      // console.log(arrayBuilder);
       if (arrayBuilder.length === 0 || arrayBuilder[0].Response === "False") {
         setNoResults("no results found");
         setDataNum("0");
@@ -118,19 +107,6 @@ function OmdbApi() {
       }
     }, 2000);
   };
-
-  // const setAllTheData = (arr) => {
-  //   console.log(arr);
-  //   setLoading(false);
-  //   setAllData(arr);
-  //   console.log(allData);
-  //   if (arr.length === 0 || arr[0].Response === "False") {
-  //     setNoResults("no results found");
-  //     setDataNum("0");
-  //   } else {
-  //     setDataNum(arr.length);
-  //   }
-  // };
 
   // takes the date given by the API and creates mm/dd/yyyy
   const convertDate = (date) => {
@@ -179,6 +155,7 @@ function OmdbApi() {
     }
   };
 
+  // This was for the bootstrap table
   // const renderData = allData
   //   ? allData.map((d, i) => {
   //       console.log(d);
@@ -210,9 +187,9 @@ function OmdbApi() {
   //     })
   //   : null;
 
+  // Material data table
   const renderMaterialData = allData
     ? allData.map((d, i) => {
-        // console.log(d);
         // This takes off the "min" off the end of the string. Requested formatting from Bob
         const rtString = d.Runtime
           ? d.Runtime.substring(0, d.Runtime.length - 3)
@@ -256,6 +233,7 @@ function OmdbApi() {
           </p>
         </form>
       </div>
+      {/* bootstrap table */}
       {/* {loading ? (
         <div className="spinner-wrapper">
           <Spinner animation="border" role="status">
@@ -291,6 +269,8 @@ function OmdbApi() {
           ) : null}
         </div>
       )} */}
+
+      {/* material table */}
       {loading ? (
         <div className="spinner-wrapper">
           <Spinner animation="border" role="status">
