@@ -2,9 +2,10 @@
 import React, { useState, forwardRef } from "react";
 import MaterialTable from "material-table";
 
+// antd imports
+import { Table, Spin, Space } from "antd";
+
 // Bootstrap
-// import Table from "react-bootstrap/Table";
-import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 
 // Material Icons
@@ -57,23 +58,25 @@ function OmdbApi() {
   const [dataNum, setDataNum] = useState("0");
   const [respError, setRespError] = useState("");
   const [noResults, setNoResults] = useState("");
+  const [update, setUpdate] = useState(false);
 
   const getInputValue = (e) => {
     setInputVal(e.target.value);
+    // console.log(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     // Set these 2 to empty strings. If you don't, the errors will persist through the next search.
     setNoResults("");
     setRespError("");
+    console.log("handlesubmit");
     const dataArray = inputVal.split(";");
     loopIds(dataArray);
   };
 
   function handleErrors(response) {
     setRespError(response.Error);
-    console.log(response.Error);
     if (response.Error) throw Error(response.Error);
     if (!response.ok) throw Error(response.statusText);
     return response;
@@ -82,10 +85,11 @@ function OmdbApi() {
   // This function takes the array of IDs, loops through and makes an API call for each iteration then stores it in an array. That new array will be set to the
   // state object which we will use to iterate over to display the data to the user.
   const loopIds = (dArray) => {
+    console.log("in loopIDs");
     setLoading(true);
     let arrayBuilder = [];
-
     dArray.map((d) => {
+      // console.log(d);
       return fetch(`https://www.omdbapi.com/?i=${d}&apikey=${apiKey}`)
         .then(handleErrors)
         .then((response) => response.json())
@@ -98,15 +102,26 @@ function OmdbApi() {
 
     setTimeout(function () {
       setLoading(false);
-      // console.log(arrayBuilder);
       if (arrayBuilder.length === 0 || arrayBuilder[0].Response === "False") {
         setNoResults("no results found");
         setDataNum("0");
       } else {
         setDataNum(arrayBuilder.length);
       }
-    }, 2000);
+    }, 3000);
   };
+
+  // const setAllTheData = (arr) => {
+  //   setLoading(false);
+  //   setAllData(arr);
+  //   console.log("set all the data");
+  //   if (arr.length === 0 || arr[0].Response === "False") {
+  //     setNoResults("no results found");
+  //     setDataNum("0");
+  //   } else {
+  //     setDataNum(arr.length);
+  //   }
+  // };
 
   // takes the date given by the API and creates mm/dd/yyyy
   const convertDate = (date) => {
@@ -155,38 +170,6 @@ function OmdbApi() {
     }
   };
 
-  // This was for the bootstrap table
-  // const renderData = allData
-  //   ? allData.map((d, i) => {
-  //       console.log(d);
-  //       // This takes off the "min" off the end of the string. Requested formatting from Bob
-  //       const rtString = d.Runtime
-  //         ? d.Runtime.substring(0, d.Runtime.length - 3)
-  //         : null;
-  //       const date = d.Released ? convertDate(d.Released) : null;
-
-  //       return (
-  //         <tr key={i}>
-  //           <td>
-  //             <img src={d.Poster} alt="poster" className="poster-img" />
-  //           </td>
-  //           <td>{d.imdbID}</td>
-  //           <td>{d.Title}</td>
-  //           <td>{rtString}</td>
-  //           <td>{d.Year}</td>
-  //           <td>{d.Director}</td>
-  //           <td>{d.Writer}</td>
-  //           <td>{d.Actors}</td>
-  //           <td>{d.Genre}</td>
-  //           <td>{d.Language}</td>
-  //           <td>{d.Country}</td>
-  //           <td>{date}</td>
-  //           <td>{d.Poster}</td>
-  //         </tr>
-  //       );
-  //     })
-  //   : null;
-
   // Material data table
   const renderMaterialData = allData
     ? allData.map((d, i) => {
@@ -233,49 +216,13 @@ function OmdbApi() {
           </p>
         </form>
       </div>
-      {/* bootstrap table */}
-      {/* {loading ? (
-        <div className="spinner-wrapper">
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
-        </div>
-      ) : (
-        <div className="table-container">
-          <Table striped bordered hover size="sm" responsive>
-            <thead>
-              <tr>
-                <th>Poster Img</th>
-                <th>IMDB ID</th>
-                <th>Title</th>
-                <th>Run time</th>
-                <th>Release year</th>
-                <th>Director</th>
-                <th>Writer</th>
-                <th>Actors</th>
-                <th>Genre</th>
-                <th>Language</th>
-                <th>Country of origin</th>
-                <th>Release date</th>
-                <th>Poster URL</th>
-              </tr>
-            </thead>
-            <tbody>{renderData}</tbody>
-          </Table>
-          {noResults ? (
-            <Alert variant="warning" className="alerts">
-              {noResults}
-            </Alert>
-          ) : null}
-        </div>
-      )} */}
 
       {/* material table */}
       {loading ? (
         <div className="spinner-wrapper">
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
+          <Space size="middle">
+            <Spin size="large" />
+          </Space>
         </div>
       ) : (
         <div className="table-container">
@@ -283,7 +230,7 @@ function OmdbApi() {
             icons={tableIcons}
             options={{
               exportButton: true,
-              filtering: true,
+              exportAllData: true,
             }}
             columns={[
               {

@@ -1,6 +1,10 @@
 // import { render } from "@testing-library/react";
 import React, { useState, forwardRef, useEffect } from "react";
 import MaterialTable from "material-table";
+import { Table, Tag, Space } from "antd";
+
+// components
+import LinkButton from "../external-link-button/ExternalLinkButton";
 
 // css
 import "./Episodic.css";
@@ -51,7 +55,7 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-function App() {
+function Episodic() {
   const apiKey = process.env.REACT_APP_IMDB_KEY;
 
   // request ops for IMDB API
@@ -67,12 +71,17 @@ function App() {
   const [respError, setRespError] = useState("");
   const [noResults, setNoResults] = useState("");
   const [seriesResult, setSeriesResult] = useState([]);
+  const [seasonNums, setSeasonNums] = useState([]);
+  const [table, showTable] = useState(false);
+  const [seasonArray, setSeasonArray] = useState([]);
+  const [imdbId, setImdbId] = useState("");
 
   const getInputValue = (e) => {
     setInputVal(e.target.value);
   };
 
   const handleSubmit = (e) => {
+    console.log(inputVal);
     e.preventDefault();
     // Set these 2 to emptry strings. If you don't, the errors will persist through the next search.
     setNoResults("");
@@ -81,11 +90,39 @@ function App() {
       `https://imdb-api.com/en/API/Title/${apiKey}/${inputVal}`,
       requestOptions
     )
-      .then(handleErrors)
+      // .then(handleErrors)
       .then((response) => response.json())
-      .then((result) => setSeriesResult(result))
-      .then((result) => console.log(result))
+      .then((result) => {
+        setSeriesResult(result);
+        setSeasonNums(result.tvSeriesInfo.seasons);
+        setImdbId(result.id);
+        console.log(result.tvSeriesInfo.seasons.length);
+      })
       .catch((error) => console.log("error", error));
+  };
+
+  const fetchSeasonInfo = (e) => {
+    e.preventDefault();
+    let arrayBuilder = [];
+    setLoading(true);
+    seasonNums.map((s, i) => {
+      fetch(
+        `https://imdb-api.com/en/API/SeasonEpisodes/${apiKey}/${imdbId}/${s}`,
+        requestOptions
+      )
+        // .then(handleErrors)
+        .then((response) => response.json())
+        .then((result) => {
+          arrayBuilder.push(result);
+          // console.log(result);
+        })
+        .catch((error) => console.log("error", error));
+    });
+    setTimeout(() => {
+      setSeasonArray(arrayBuilder);
+      showTable(true);
+      setLoading(false);
+    }, 2500);
   };
 
   function handleErrors(response) {
@@ -100,48 +137,127 @@ function App() {
       return (
         <div className="main-display-wrapper">
           <img src={seriesResult.image} alt="" className="ep-md-img" />
-          <div className="info-content">
-            <h3>{seriesResult.fullTitle}</h3>
-            <p>
-              <b>Release date</b>: {seriesResult.releaseDate}
-            </p>
-            <p>
-              <b>Release year</b>: {seriesResult.year}
-            </p>
-            <p>
-              <b>Runtime</b>: {seriesResult.runtimeMins}
-            </p>
-            <p>
-              <b>Seasons</b>: {seriesResult.tvSeriesInfo.seasons.length}
-            </p>
-          </div>
-          <div className="info-content">
-            <p>
-              <b>Countries</b>: {seriesResult.countries}
-            </p>
-            <p>
-              <b>Director</b>: {seriesResult.directors}
-            </p>
-            <p>
-              <b>IMDB ID</b>:{" "}
-              <a
-                href={`https://www.imdb.com/title/${seriesResult.id}/releaseinfo?ref_=tt_ov_rdat`}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {seriesResult.id}
-              </a>
-            </p>
-            <p>
-              <b>Companies</b>: {seriesResult.companies}
-            </p>
+          <div className="content">
+            <div className="content-header">
+              <h3>{seriesResult.fullTitle}</h3>
+              <LinkButton
+                link={`https://www.imdb.com/title/${seriesResult.id}/releaseinfo?ref_=tt_ov_rdat`}
+              />
+            </div>
+            <div className="content-inner">
+              <div className="info-content">
+                <p>
+                  <b>Release date</b>: {seriesResult.releaseDate}
+                </p>
+                <p>
+                  <b>Release year</b>: {seriesResult.year}
+                </p>
+                <p>
+                  <b>Runtime</b>: {seriesResult.runtimeMins}
+                </p>
+                <p>
+                  <b>Seasons</b>:&nbsp;
+                  {seriesResult.tvSeriesInfo
+                    ? seriesResult.tvSeriesInfo.seasons.length
+                    : null}
+                </p>
+                <button onClick={fetchSeasonInfo}>Generate Season table</button>
+              </div>
+              <div className="info-content">
+                <p>
+                  <b>Countries</b>: {seriesResult.countries}
+                </p>
+                <p>
+                  <b>Director</b>: {seriesResult.directors}
+                </p>
+                <p>
+                  <b>IMDB ID</b>:{" "}
+                  <a
+                    href={`https://www.imdb.com/title/${seriesResult.id}/releaseinfo?ref_=tt_ov_rdat`}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {seriesResult.id}
+                  </a>
+                </p>
+                <p>
+                  <b>Companies</b>: {seriesResult.companies}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       );
-    } else {
+    } else if (seriesResult.length <= 0) {
       return <div>NOTHING</div>;
     }
   };
+  const columns = [
+    {
+      title: "Season",
+      dataIndex: "season",
+      key: "season",
+    },
+    {
+      title: "Episode",
+      dataIndex: "episode",
+      key: "episode",
+    },
+    {
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
+    },
+    {
+      title: "Released",
+      dataIndex: "released",
+      key: "released",
+    },
+    {
+      title: "Release Year",
+      dataIndex: "releaseYear",
+      key: "releaseYear",
+    },
+    {
+      title: "IMDB ID",
+      dataIndex: "imdbid",
+      key: "imdbid",
+    },
+    {
+      title: "Plot",
+      dataIndex: "plot",
+      key: "plot",
+    },
+  ];
+
+  const data = seasonArray.map((item) => {
+    item.episodes.map((d, index) => {
+      console.log(d);
+      return {
+        key: index,
+        season: d.seasonNumber,
+        episode: d.episodeNumber,
+        title: d.title,
+        released: d.released,
+        releaseYear: d.year,
+        imdbid: d.id,
+        plot: d.plot,
+      };
+    });
+  });
+
+  // const data = [
+  //   {
+  //     key: "1",
+  //     season: "1",
+  //     episode: "ep 1",
+  //     title: "the title",
+  //     released: "released",
+  //     releaseYear: "releaseYear",
+  //     imdbid: "tt38947",
+  //     plot: "plot",
+  //   },
+  // ];
 
   return (
     <div>
@@ -162,9 +278,14 @@ function App() {
           </p>
         </form>
       </div>
-      <div>{renderMainDisplay()}</div>
+      <div className="md-border-padding">{renderMainDisplay()}</div>
+      {table ? (
+        <div className="md-border-padding">
+          <Table columns={columns} dataSource={data} />
+        </div>
+      ) : null}
     </div>
   );
 }
 
-export default App;
+export default Episodic;
