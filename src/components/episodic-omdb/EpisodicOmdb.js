@@ -2,6 +2,8 @@
 import React, { useState, forwardRef, useEffect } from "react";
 import MaterialTable from "material-table";
 import { Table, Spin, Tag, Space } from "antd";
+import { Menu, Dropdown } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 
 // components
 import LinkButton from "../external-link-button/ExternalLinkButton";
@@ -85,6 +87,7 @@ const EpisodicOmdb = () => {
 
   const handleSubmit = (e) => {
     setTopLoading(true);
+    showTable(false);
     console.log(inputVal);
     e.preventDefault();
     // Set these 2 to emptry strings. If you don't, the errors will persist through the next search.
@@ -94,6 +97,7 @@ const EpisodicOmdb = () => {
       .then(handleErrors)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         setSeriesResult(data);
         setSeasonNums(data.totalSeasons);
         setImdbId(data.imdbID);
@@ -122,11 +126,12 @@ const EpisodicOmdb = () => {
     }
 
     setSeasonArray(arrayBuilder);
+    console.log(arrayBuilder);
 
     setTimeout(() => {
       showTable(true);
       setBottomLoading(false);
-    }, 4000);
+    }, 2000);
   };
 
   function handleErrors(response) {
@@ -135,6 +140,18 @@ const EpisodicOmdb = () => {
     if (!response.ok) throw Error(response.statusText);
     return response;
   }
+
+  const generateMenu = () => {
+    let numLength = Number(seasonNums);
+    console.log(numLength);
+    let i = 1;
+    while (i < numLength) {
+      return <Menu.Item key={i}>{i}</Menu.Item>;
+      i++;
+    }
+  };
+
+  const menu = <Menu>{generateMenu()}</Menu>;
 
   const renderMainDisplay = () => {
     if (seriesResult) {
@@ -168,20 +185,39 @@ const EpisodicOmdb = () => {
                   />
                 </p>
                 <p>
-                  <b>Seasons</b>: {seriesResult.totalSeasons}
+                  <b>Company Credits: </b>
                   <LinkButton
-                    link={`https://www.imdb.com/title/${seriesResult.imdbID}/episodes/?ref_=tt_ov_epl`}
+                    link={`https://www.imdb.com/title/${seriesResult.imdbID}/companycredits?ref_=tt_dt_co`}
                   />
                 </p>
-                <button onClick={fetchSeasonInfo}>Generate Season table</button>
+                {seriesResult.totalSeasons ? (
+                  <p>
+                    <b>Seasons</b>: {seriesResult.totalSeasons}
+                    <LinkButton
+                      link={`https://www.imdb.com/title/${seriesResult.imdbID}/episodes/?ref_=tt_ov_epl`}
+                    />
+                  </p>
+                ) : null}
+                {seriesResult.totalSeasons ? (
+                  <button
+                    onClick={fetchSeasonInfo}
+                    className="season-gen-button"
+                  >
+                    Generate Season table
+                  </button>
+                ) : null}
+                {/* {seriesResult.totalSeasons ? (
+                  <Dropdown overlay={menu} trigger={["hover"]}>
+                    <a
+                      className="ant-dropdown-link"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      Season: <DownOutlined />
+                    </a>
+                  </Dropdown>
+                ) : null} */}
               </div>
               <div className="info-content">
-                <p>
-                  <b>Countries</b>: {seriesResult.Country}
-                </p>
-                <p>
-                  <b>Director</b>: {seriesResult.Director}
-                </p>
                 <p>
                   <b>IMDB ID</b>:{" "}
                   <a
@@ -193,16 +229,19 @@ const EpisodicOmdb = () => {
                   </a>
                 </p>
                 <p>
+                  <b>Countries</b>: {seriesResult.Country}
+                </p>
+                <p>
+                  <b>Director</b>: {seriesResult.Director}
+                </p>
+                <p>
                   <b>Language</b>: {seriesResult.Language}
                 </p>
                 <p>
                   <b>Actors</b>: {seriesResult.Actors}
                 </p>
                 <p>
-                  <b>Company Credits: </b>
-                  <LinkButton
-                    link={`https://www.imdb.com/title/${seriesResult.imdbID}/companycredits?ref_=tt_dt_co`}
-                  />
+                  <b>Genre</b>: {seriesResult.Genre}
                 </p>
               </div>
             </div>
@@ -275,12 +314,19 @@ const EpisodicOmdb = () => {
     console.log(item);
     const epNum = item.Episodes;
     return {
-      episode: epNum.map((ep) => {
+      season: item.Season,
+      episodename: epNum.map((ep) => {
         return <p>{ep.Title}</p>;
       }),
-      title: item.Season,
-      released: item.Title,
-      imdbid: item.totalSeasons,
+      episodenum: epNum.map((ep) => {
+        return <p>{ep.Episode}</p>;
+      }),
+      released: epNum.map((ep) => {
+        return <p>{ep.Released}</p>;
+      }),
+      imdbid: epNum.map((ep) => {
+        return <p>{ep.imdbID}</p>;
+      }),
     };
     // item.Episodes.map((d) => {
     //   return {
@@ -320,10 +366,10 @@ const EpisodicOmdb = () => {
           <button type="submit" className="submit-button">
             Search
           </button>
-          <p>
+          {/* <p>
             You searched for <span className="data-num">{dataNum}</span>
             <span>&nbsp;{dataNum === 1 ? "title" : "titles"}</span>
-          </p>
+          </p> */}
         </form>
       </div>
       {topLoading ? (
@@ -353,8 +399,9 @@ const EpisodicOmdb = () => {
               exportAllData: true,
             }}
             columns={[
-              { title: "Episode", field: "episode", type: "string" },
-              { title: "Title", field: "title" },
+              { title: "Season", field: "season", type: "string" },
+              { title: "Episode Name", field: "episodename", type: "string" },
+              { title: "Episode Number", field: "episodenum" },
               { title: "Released", field: "released" },
               { title: "IMDBID", field: "imdbid", type: "string" },
             ]}
