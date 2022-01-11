@@ -113,9 +113,7 @@ const EpisodicOmdb = () => {
     let arrLength = Number(seasonNums);
     setBottomLoading(true);
     for (var i = 1; i < arrLength + 1; i++) {
-      fetch(
-        `https://www.omdbapi.com/?i=${inputVal}&Season=${i}&apikey=${apiKey}`
-      )
+      fetch(`https://www.omdbapi.com/?i=${imdbId}&Season=${i}&apikey=${apiKey}`)
         .then(handleErrors)
         .then((response) => response.json())
         .then((data) => {
@@ -160,7 +158,7 @@ const EpisodicOmdb = () => {
           <img src={seriesResult.Poster} alt="" className="ep-md-img" />
           <div className="content">
             <div className="content-header">
-              <h3>
+              <h3 className="title">
                 {seriesResult.Title}&nbsp;({seriesResult.Year})
               </h3>
               <LinkButton
@@ -357,7 +355,7 @@ const EpisodicOmdb = () => {
     <div>
       <div className="form-wrapper">
         <form onSubmit={handleSubmit}>
-          <input type="text" onChange={getInputValue} />
+          <input type="text" onChange={getInputValue} className="input-bar"/>
           {respError ? (
             <Alert variant="danger" className="alerts">
               {respError}
@@ -397,13 +395,70 @@ const EpisodicOmdb = () => {
             options={{
               exportButton: true,
               exportAllData: true,
+              headerStyle: {
+                backgroundColor: "#383838",
+                color: "#FFF",
+              },
             }}
             columns={[
-              { title: "Season", field: "season", type: "string" },
-              { title: "Episode Name", field: "episodename", type: "string" },
-              { title: "Episode Number", field: "episodenum" },
-              { title: "Released", field: "released" },
-              { title: "IMDBID", field: "imdbid", type: "string" },
+              {
+                title: "Season",
+                field: "season",
+                type: "string",
+                cellStyle: {
+                  backgroundColor: "#383838",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#383838",
+                },
+              },
+              {
+                title: "Episode Name",
+                field: "episodename",
+                type: "string",
+                cellStyle: {
+                  backgroundColor: "#383838",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#383838",
+                },
+              },
+              {
+                title: "Episode Number",
+                field: "episodenum",
+                cellStyle: {
+                  backgroundColor: "#383838",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#383838",
+                },
+              },
+              {
+                title: "Released",
+                field: "released",
+                cellStyle: {
+                  backgroundColor: "#383838",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#383838",
+                },
+              },
+              {
+                title: "IMDBID",
+                field: "imdbid",
+                type: "string",
+                cellStyle: {
+                  backgroundColor: "#383838",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#383838",
+                },
+              },
             ]}
             data={renderMaterialData}
             title="Series generator"

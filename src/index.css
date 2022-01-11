@@ -11,7 +11,31 @@ code {
 
 #root {
   min-height: 100vh;
-  background-color: #f3f3f3;
+  background-color: #181818;
+}
+
+.ant-tabs-top > .ant-tabs-nav::before,
+.ant-tabs-bottom > .ant-tabs-nav::before,
+.ant-tabs-top > div > .ant-tabs-nav::before,
+.ant-tabs-bottom > div > .ant-tabs-nav::before {
+  border-bottom: none !important;
+}
+
+/* .ant-tabs-top > .ant-tabs-nav::before,
+.ant-tabs-bottom > .ant-tabs-nav::before,
+.ant-tabs-top > div > .ant-tabs-nav::before,
+.ant-tabs-bottom > div > .ant-tabs-nav::before {
+  position: absolute;
+  right: 0;
+  left: 0;
+  border-bottom: 1px solid #f0f0f0;
+  content: "";
+} */
+
+.ant-tabs-tab-btn {
+  outline: none;
+  transition: all 0.3s;
+  color: white;
 }
 
 /* this will give even widths, but can make the table very high. poster URL is the main culprit */

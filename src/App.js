@@ -17,7 +17,7 @@ const { TabPane } = Tabs;
 function App() {
   return (
     <div className="App">
-      <Tabs defaultActiveKey="2" centered>
+      <Tabs defaultActiveKey="1" centered>
         {/* <TabPane tab="Series" key="1">
           <Episodic />
         </TabPane> */}
