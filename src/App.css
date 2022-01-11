@@ -90,6 +90,27 @@ tr:hover {
   background: #383838 !important;
 }
 
+.MTableToolbar-root-5 {
+  background: #529e9e;
+}
+
+.MuiTypography-h6 {
+  color: white;
+}
+
+.MuiInput-underline:after {
+  border-bottom: 2px solid #fff !important;
+}
+
+.MuiTableCell-body {
+  color: #fff;
+  background: #383838;
+}
+
+.MuiTable-root {
+  background: #585858;
+}
+
 /* ant */
 .ant-tabs-ink-bar {
   position: absolute;
