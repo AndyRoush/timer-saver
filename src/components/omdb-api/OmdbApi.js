@@ -198,10 +198,10 @@ function OmdbApi() {
     : null;
 
   return (
-    <div className="App">
+    <div>
       <div className="form-wrapper">
         <form onSubmit={handleSubmit}>
-          <input type="text" onChange={getInputValue} />
+          <input type="text" onChange={getInputValue} className="input-bar" />
           {respError ? (
             <Alert variant="danger" className="alerts">
               {respError}
@@ -210,7 +210,7 @@ function OmdbApi() {
           <button type="submit" className="submit-button">
             Search
           </button>
-          <p>
+          <p className="search-amount">
             You searched for <span className="data-num">{dataNum}</span>
             <span>&nbsp;{dataNum === 1 ? "title" : "titles"}</span>
           </p>
@@ -245,26 +245,168 @@ function OmdbApi() {
                 ),
                 filtering: false,
                 export: false,
+                cellStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
               },
               {
                 title: "IMDB ID",
                 field: "imdbId",
+                cellStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
               },
-              { title: "Title", field: "title", type: "string" },
-              { title: "Run time", field: "runtime" },
-              { title: "Release Year", field: "releaseYear" },
-              { title: "Director", field: "director", type: "string" },
-              { title: "Writer", field: "writer", type: "string" },
-              { title: "Actors", field: "actors", type: "string" },
-              { title: "Genre", field: "genre", type: "string" },
-              { title: "Language", field: "language", type: "string" },
-              { title: "Country of Origin", field: "country", type: "string" },
-              { title: "Release Date", field: "releaseDate", type: "date" },
+              {
+                title: "Title",
+                field: "title",
+                type: "string",
+                cellStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+              },
+              {
+                title: "Run time",
+                field: "runtime",
+                cellStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+              },
+              {
+                title: "Release Year",
+                field: "releaseYear",
+                cellStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+              },
+              {
+                title: "Director",
+                field: "director",
+                type: "string",
+                cellStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+              },
+              {
+                title: "Writer",
+                field: "writer",
+                type: "string",
+                cellStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+              },
+              {
+                title: "Actors",
+                field: "actors",
+                type: "string",
+                cellStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+              },
+              {
+                title: "Genre",
+                field: "genre",
+                type: "string",
+                cellStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+              },
+              {
+                title: "Language",
+                field: "language",
+                type: "string",
+                cellStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+              },
+              {
+                title: "Country of Origin",
+                field: "country",
+                type: "string",
+                cellStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+              },
+              {
+                title: "Release Date",
+                field: "releaseDate",
+                type: "date",
+                cellStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+              },
               {
                 title: "Poster URL",
                 field: "posterUrl",
                 type: "string",
                 filtering: false,
+                cellStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
+                headerStyle: {
+                  backgroundColor: "#393E46",
+                  color: "#FFF",
+                },
               },
             ]}
             data={renderMaterialData}

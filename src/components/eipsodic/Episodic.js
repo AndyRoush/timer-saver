@@ -272,10 +272,6 @@ function Episodic() {
           <button type="submit" className="submit-button">
             Search
           </button>
-          <p>
-            You searched for <span className="data-num">{dataNum}</span>
-            <span>&nbsp;{dataNum === 1 ? "title" : "titles"}</span>
-          </p>
         </form>
       </div>
       <div className="md-border-padding">{renderMainDisplay()}</div>

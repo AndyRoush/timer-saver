@@ -11,7 +11,7 @@ code {
 
 #root {
   min-height: 100vh;
-  background-color: #181818;
+  background-color: #222831;
 }
 
 .ant-tabs-top > .ant-tabs-nav::before,
@@ -35,7 +35,7 @@ code {
 .ant-tabs-tab-btn {
   outline: none;
   transition: all 0.3s;
-  color: white;
+  color: #EEEEEE;
 }
 
 /* this will give even widths, but can make the table very high. poster URL is the main culprit */

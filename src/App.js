@@ -17,20 +17,22 @@ const { TabPane } = Tabs;
 function App() {
   return (
     <div className="App">
-      <Tabs defaultActiveKey="1" centered>
-        {/* <TabPane tab="Series" key="1">
+      <div class="main-content-wrapper">
+        <Tabs defaultActiveKey="1" centered>
+          {/* <TabPane tab="Series" key="1">
           <Episodic />
         </TabPane> */}
-        <TabPane tab="Series-Omdb" key="1">
-          <EpisodicOmdb />
-        </TabPane>
-        {/* <TabPane tab="IMDB-API" key="3">
+          <TabPane tab="Episodic" key="1">
+            <EpisodicOmdb />
+          </TabPane>
+          {/* <TabPane tab="IMDB-API" key="3">
           <ImdbApi />
         </TabPane> */}
-        <TabPane tab="Bulk Search" key="2">
-          <OmdbApi />
-        </TabPane>
-      </Tabs>
+          <TabPane tab="Bulk Search" key="2">
+            <OmdbApi />
+          </TabPane>
+        </Tabs>
+      </div>
     </div>
   );
 }

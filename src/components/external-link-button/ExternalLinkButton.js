@@ -3,8 +3,9 @@ import React from "react";
 //css
 import "./ExternalLinkButton.css";
 
-//assets
-import linkImg from "../../assets/images/exit-top-right.png";
+// FA icon
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 
 const ExternalLinkButton = (props) => {
   return (
@@ -15,8 +16,7 @@ const ExternalLinkButton = (props) => {
         rel="noopener noreferrer"
         className="link-button-wrapper"
       >
-        {/* <img src={linkImg} alt="external link" className="ext-link-button" /> */}
-        <i class="fas fa-external-link-alt"></i>
+        <FontAwesomeIcon icon={faExternalLinkAlt} />
       </a>
     </>
   );

@@ -1,14 +1,26 @@
+.title-name {
+  color: #ffc045;
+}
+
+.title-date {
+  color: #eeeeee;
+}
+
+.title-first {
+  color: #ffc045;
+}
+
 .ep-md-img {
   width: 200px;
 }
 
 .md-border-padding {
   color: #e7e7e7;
-  border: 1px solid #6c6c6c;
+  border: 1px solid #393e46;
   border-radius: 3px;
   padding: 10px;
   margin: 15px 0;
-  background-color: #181818;
+  background-color: #222831;
 }
 
 .main-display-wrapper {
@@ -39,27 +51,34 @@
 }
 
 .season-gen-button {
-  background-color: rgb(82, 158, 158);
+  background-color: transparent;
   border: none;
-  color: white;
+  color: #eeeeee;
   padding: 5px 40px;
   margin-bottom: 10px;
+  border-radius: 2px;
+  border: 1px solid #00adb5;
+  transition: 0.1s linear;
 }
 
-.title {
-  color: wheat;
+.season-gen-button:hover {
+  background-color: #00adb5;
 }
+
+/* .title {
+  color: #ffc045;
+} */
 
 .input-bar {
-  color: white;
-  background: #181818;
-  border: 1px solid #6c6c6c;
+  color: #eeeeee;
+  background: #222831;
+  border: 1px solid #393e46;
 }
 
 .input-bar:focus-visible {
-  color: white;
-  /* background: #181818; */
-  background: #272727;
-  border: 1px solid #6c6c6c;
+  color: #eeeeee;
+  /* background: #222831; */
+  background: #272e38;
+  border: 1px solid #393e46;
   outline: none;
 }

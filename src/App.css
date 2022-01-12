@@ -4,18 +4,32 @@
   padding: 50px;
 }
 
+.main-content-wrapper {
+  max-width: 1200px;
+  margin: auto;
+}
+
+a {
+  color: #00adb5 !important;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #62bdbd !important;
+}
+
 .table {
   font-size: 10pt;
   caption-side: bottom;
   border-collapse: collapse;
   background: #282828 !important;
-  color: white !important;
+  color: #eeeeee !important;
 }
 
 .form-wrapper {
   text-align: center;
   font-family: "Roboto", sans-serif;
-  margin-top: 40px;
+  margin-top: 25px;
 }
 
 input[type="text"] {
@@ -24,12 +38,19 @@ input[type="text"] {
 }
 
 .submit-button {
-  background-color: rgb(82, 158, 158);
+  background-color: transparent;
   border: none;
-  color: white;
+  color: #eeeeee;
   padding: 5px 40px;
   margin-top: 10px;
   margin-bottom: 10px;
+  border-radius: 2px;
+  border: 1px solid #00adb5;
+  transition: 0.1s linear;
+}
+
+.submit-button:hover {
+  background-color: #00adb5;
 }
 
 .spinner-wrapper {
@@ -58,6 +79,10 @@ input[type="text"] {
   width: 90px;
 }
 
+.search-amount {
+  color: #eeeeee;
+}
+
 /* light */
 /* tr:hover {
   background-color: rgb(233, 233, 233);
@@ -69,57 +94,61 @@ tr:hover {
 
 /* MUI bottom of table row selector */
 .MuiTablePagination-select {
-  color: white !important;
+  color: #eeeeee !important;
 }
 
 .MuiSelect-icon {
-  color: white !important;
+  color: #eeeeee !important;
 }
 
 .MTablePaginationInner-root-14 {
-  color: white !important;
+  color: #eeeeee !important;
 }
 
 .MuiIconButton-root.Mui-disabled {
-  color: white !important;
+  color: #eeeeee !important;
 }
 
 .Component-paginationToolbar-2 {
   width: 100%;
   padding: 0;
-  background: #383838 !important;
+  background: #393e46 !important;
 }
 
 .MTableToolbar-root-5 {
-  background: #529e9e;
+  background: #00adb5;
 }
 
 .MuiTypography-h6 {
-  color: white;
+  color: #eeeeee;
 }
 
 .MuiInput-underline:after {
-  border-bottom: 2px solid #fff !important;
+  border-bottom: 2px solid #222831 !important;
 }
 
 .MuiTableCell-body {
   color: #fff;
-  background: #383838;
+  background: #393e46;
 }
 
 .MuiTable-root {
-  background: #585858;
+  background: #393e46;
 }
+
+/* .MuiInputBase-root {
+  color: #eeeeee;
+} */
 
 /* ant */
 .ant-tabs-ink-bar {
   position: absolute;
-  background: #529e9e;
+  background: #00adb5;
   pointer-events: none;
 }
 
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #529e9e;
+  color: #00adb5;
   text-shadow: 0 0 0.25px currentColor;
 }
 
@@ -127,11 +156,17 @@ tr:hover {
 .ant-tabs-tab-remove:focus,
 .ant-tabs-tab-btn:active,
 .ant-tabs-tab-remove:active {
-  color: #529e9e;
+  color: #00adb5;
 }
 
 .ant-tabs-tab-btn {
   outline: none;
   transition: all 0.3s;
-  color: white;
+  color: #eeeeee;
+}
+
+.ant-tabs-tab-btn:hover {
+  outline: none;
+  transition: all 0.3s;
+  color: #00adb5;
 }

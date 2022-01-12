@@ -149,7 +149,7 @@ const EpisodicOmdb = () => {
     }
   };
 
-  const menu = <Menu>{generateMenu()}</Menu>;
+  // const menu = <Menu>{generateMenu()}</Menu>;
 
   const renderMainDisplay = () => {
     if (seriesResult) {
@@ -159,7 +159,8 @@ const EpisodicOmdb = () => {
           <div className="content">
             <div className="content-header">
               <h3 className="title">
-                {seriesResult.Title}&nbsp;({seriesResult.Year})
+                <span className="title-name">{seriesResult.Title}</span>&nbsp;{" "}
+                <span className="title-date">({seriesResult.Year})</span>
               </h3>
               <LinkButton
                 link={`https://www.imdb.com/title/${seriesResult.imdbID}/`}
@@ -168,29 +169,43 @@ const EpisodicOmdb = () => {
             <div className="content-inner">
               <div className="info-content">
                 <p>
-                  <b>Release date</b>: {seriesResult.Released}
+                  <span className="title-first">
+                    <b>Release date</b>:&nbsp;
+                  </span>
+                  {seriesResult.Released}
                   <LinkButton
                     link={`https://www.imdb.com/title/${seriesResult.imdbID}/releaseinfo?ref_=tt_dt_rdat`}
                   />
                 </p>
                 <p>
-                  <b>Release year</b>: {seriesResult.Year}
+                  <span className="title-first">
+                    <b>Release year</b>:&nbsp;
+                  </span>
+                  {seriesResult.Year}
                 </p>
                 <p>
-                  <b>Runtime</b>: {seriesResult.Runtime}
+                  <span className="title-first">
+                    <b>Runtime</b>:&nbsp;
+                  </span>
+                  {seriesResult.Runtime}
                   <LinkButton
                     link={`https://www.imdb.com/title/${seriesResult.imdbID}/technical?ref_=tt_spec_sm`}
                   />
                 </p>
                 <p>
-                  <b>Company Credits: </b>
+                  <span className="title-first">
+                    <b>Company Credits:</b>
+                  </span>
                   <LinkButton
                     link={`https://www.imdb.com/title/${seriesResult.imdbID}/companycredits?ref_=tt_dt_co`}
                   />
                 </p>
                 {seriesResult.totalSeasons ? (
                   <p>
-                    <b>Seasons</b>: {seriesResult.totalSeasons}
+                    <span className="title-first">
+                      <b>Seasons</b>:&nbsp;
+                    </span>{" "}
+                    {seriesResult.totalSeasons}
                     <LinkButton
                       link={`https://www.imdb.com/title/${seriesResult.imdbID}/episodes/?ref_=tt_ov_epl`}
                     />
@@ -217,7 +232,9 @@ const EpisodicOmdb = () => {
               </div>
               <div className="info-content">
                 <p>
-                  <b>IMDB ID</b>:{" "}
+                  <span className="title-first">
+                    <b>IMDB ID</b>:&nbsp;
+                  </span>{" "}
                   <a
                     href={`https://www.imdb.com/title/${seriesResult.imdbID}/releaseinfo?ref_=tt_ov_rdat`}
                     rel="noopener noreferrer"
@@ -227,19 +244,34 @@ const EpisodicOmdb = () => {
                   </a>
                 </p>
                 <p>
-                  <b>Countries</b>: {seriesResult.Country}
+                  <span className="title-first">
+                    <b>Countries</b>:&nbsp;
+                  </span>{" "}
+                  {seriesResult.Country}
                 </p>
                 <p>
-                  <b>Director</b>: {seriesResult.Director}
+                  <span className="title-first">
+                    <b>Director</b>:&nbsp;
+                  </span>{" "}
+                  {seriesResult.Director}
                 </p>
                 <p>
-                  <b>Language</b>: {seriesResult.Language}
+                  <span className="title-first">
+                    <b>Language</b>:&nbsp;
+                  </span>{" "}
+                  {seriesResult.Language}
                 </p>
                 <p>
-                  <b>Actors</b>: {seriesResult.Actors}
+                  <span className="title-first">
+                    <b>Actors</b>:&nbsp;
+                  </span>{" "}
+                  {seriesResult.Actors}
                 </p>
                 <p>
-                  <b>Genre</b>: {seriesResult.Genre}
+                  <span className="title-first">
+                    <b>Genre</b>:&nbsp;
+                  </span>{" "}
+                  {seriesResult.Genre}
                 </p>
               </div>
             </div>
@@ -355,7 +387,7 @@ const EpisodicOmdb = () => {
     <div>
       <div className="form-wrapper">
         <form onSubmit={handleSubmit}>
-          <input type="text" onChange={getInputValue} className="input-bar"/>
+          <input type="text" onChange={getInputValue} className="input-bar" />
           {respError ? (
             <Alert variant="danger" className="alerts">
               {respError}
@@ -364,10 +396,6 @@ const EpisodicOmdb = () => {
           <button type="submit" className="submit-button">
             Search
           </button>
-          {/* <p>
-            You searched for <span className="data-num">{dataNum}</span>
-            <span>&nbsp;{dataNum === 1 ? "title" : "titles"}</span>
-          </p> */}
         </form>
       </div>
       {topLoading ? (
@@ -393,10 +421,8 @@ const EpisodicOmdb = () => {
           <MaterialTable
             icons={tableIcons}
             options={{
-              exportButton: true,
-              exportAllData: true,
               headerStyle: {
-                backgroundColor: "#383838",
+                backgroundColor: "#393E46",
                 color: "#FFF",
               },
             }}
@@ -406,11 +432,11 @@ const EpisodicOmdb = () => {
                 field: "season",
                 type: "string",
                 cellStyle: {
-                  backgroundColor: "#383838",
+                  backgroundColor: "#393E46",
                   color: "#FFF",
                 },
                 headerStyle: {
-                  backgroundColor: "#383838",
+                  backgroundColor: "#393E46",
                 },
               },
               {
@@ -418,33 +444,33 @@ const EpisodicOmdb = () => {
                 field: "episodename",
                 type: "string",
                 cellStyle: {
-                  backgroundColor: "#383838",
+                  backgroundColor: "#393E46",
                   color: "#FFF",
                 },
                 headerStyle: {
-                  backgroundColor: "#383838",
+                  backgroundColor: "#393E46",
                 },
               },
               {
                 title: "Episode Number",
                 field: "episodenum",
                 cellStyle: {
-                  backgroundColor: "#383838",
+                  backgroundColor: "#393E46",
                   color: "#FFF",
                 },
                 headerStyle: {
-                  backgroundColor: "#383838",
+                  backgroundColor: "#393E46",
                 },
               },
               {
                 title: "Released",
                 field: "released",
                 cellStyle: {
-                  backgroundColor: "#383838",
+                  backgroundColor: "#393E46",
                   color: "#FFF",
                 },
                 headerStyle: {
-                  backgroundColor: "#383838",
+                  backgroundColor: "#393E46",
                 },
               },
               {
@@ -452,11 +478,11 @@ const EpisodicOmdb = () => {
                 field: "imdbid",
                 type: "string",
                 cellStyle: {
-                  backgroundColor: "#383838",
+                  backgroundColor: "#393E46",
                   color: "#FFF",
                 },
                 headerStyle: {
-                  backgroundColor: "#383838",
+                  backgroundColor: "#393E46",
                 },
               },
             ]}
