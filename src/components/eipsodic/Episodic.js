@@ -2,6 +2,8 @@
 import React, { useState, forwardRef, useEffect } from "react";
 import MaterialTable from "material-table";
 import { Table, Tag, Space } from "antd";
+import { Menu, Dropdown } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 
 // components
 import LinkButton from "../external-link-button/ExternalLinkButton";
@@ -96,7 +98,8 @@ function Episodic() {
         setSeriesResult(result);
         setSeasonNums(result.tvSeriesInfo.seasons);
         setImdbId(result.id);
-        console.log(result.tvSeriesInfo.seasons.length);
+        console.log(result.tvSeriesInfo.seasons);
+        console.log(result);
       })
       .catch((error) => console.log("error", error));
   };
@@ -162,6 +165,14 @@ function Episodic() {
                     : null}
                 </p>
                 <button onClick={fetchSeasonInfo}>Generate Season table</button>
+                <div class="dropdown">
+                  <span>Seasons</span>
+                  <div class="dropdown-content">
+                    {seasonNums.map((num) => {
+                      return <p>{num}</p>;
+                    })}
+                  </div>
+                </div>
               </div>
               <div className="info-content">
                 <p>

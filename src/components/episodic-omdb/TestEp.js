@@ -2,8 +2,6 @@
 import React, { useState, forwardRef, useEffect } from "react";
 import MaterialTable from "material-table";
 import { Table, Spin, Tag, Space } from "antd";
-import { Menu, Dropdown } from "antd";
-import { DownOutlined } from "@ant-design/icons";
 
 // components
 import LinkButton from "../external-link-button/ExternalLinkButton";
@@ -58,14 +56,14 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-const EpisodicOmdb = () => {
+const TestEp = () => {
   const apiKey = process.env.REACT_APP_API_KEY;
 
   // request ops for IMDB API
-  // const requestOptions = {
-  //   method: "GET",
-  //   redirect: "follow",
-  // };
+  //   const requestOptions = {
+  //     method: "GET",
+  //     redirect: "follow",
+  //   };
 
   const [inputVal, setInputVal] = useState("");
   const [allData, setAllData] = useState([]);
@@ -76,9 +74,9 @@ const EpisodicOmdb = () => {
   const [noResults, setNoResults] = useState("");
   const [seriesResult, setSeriesResult] = useState([]);
   const [seasonNums, setSeasonNums] = useState("");
-  const [table, showTable] = useState(false);
+  const [table, setTable] = useState(false);
   const [mainDisp, setMainDisp] = useState(false);
-  const [seasonArray, setSeasonArray] = useState([]);
+  const [seasonArray, setSeasonArray] = useState();
   const [imdbId, setImdbId] = useState("");
 
   const getInputValue = (e) => {
@@ -87,7 +85,7 @@ const EpisodicOmdb = () => {
 
   const handleSubmit = (e) => {
     setTopLoading(true);
-    showTable(false);
+    setTable(false);
     console.log(inputVal);
     e.preventDefault();
     // Set these 2 to emptry strings. If you don't, the errors will persist through the next search.
@@ -107,8 +105,7 @@ const EpisodicOmdb = () => {
       .catch((error) => console.log("error", error));
   };
 
-  const fetchSeasonInfo = (e) => {
-    e.preventDefault();
+  const seasonBuilder = (resolve, reject) => {
     let arrayBuilder = [];
     let arrLength = Number(seasonNums);
     setBottomLoading(true);
@@ -122,14 +119,21 @@ const EpisodicOmdb = () => {
         })
         .catch((error) => console.log("error", error));
     }
+    resolve(arrayBuilder);
+  };
 
-    setSeasonArray(arrayBuilder);
-    console.log(arrayBuilder);
+  const allTheWork = async () => {
+    const seasonPromise = new Promise(seasonBuilder);
+    const seasonArrayComplete = await seasonPromise;
+    console.log(seasonArrayComplete);
+    setSeasonArray(seasonArrayComplete);
+    setBottomLoading(false);
+    setTable(true);
+  };
 
-    setTimeout(() => {
-      showTable(true);
-      setBottomLoading(false);
-    }, 2000);
+  const fetchSeasonInfo = (e) => {
+    e.preventDefault();
+    allTheWork();
   };
 
   function handleErrors(response) {
@@ -139,17 +143,24 @@ const EpisodicOmdb = () => {
     return response;
   }
 
-  const generateMenu = () => {
+  const generateMenu = (resolve, reject) => {
+    let numArray = [];
     let numLength = Number(seasonNums);
     console.log(numLength);
-    let i = 1;
-    while (i < numLength) {
-      return <Menu.Item key={i}>{i}</Menu.Item>;
-      i++;
+    for (var i = 1; i < numLength + 1; i++) {
+      numArray.push(i);
     }
+    resolve(numArray);
   };
 
-  // const menu = <Menu>{generateMenu()}</Menu>;
+  const menuFinal = async () => {
+    const numPromise = new Promise(generateMenu);
+    const numPromiseComplete = await numPromise;
+    console.log(numPromiseComplete);
+    numPromiseComplete.map((num) => {
+      return <p>{num}</p>;
+    });
+  };
 
   const renderMainDisplay = () => {
     if (seriesResult) {
@@ -219,16 +230,10 @@ const EpisodicOmdb = () => {
                     Generate Season table
                   </button>
                 ) : null}
-                {/* {seriesResult.totalSeasons ? (
-                  <Dropdown overlay={menu} trigger={["hover"]}>
-                    <a
-                      className="ant-dropdown-link"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      Season: <DownOutlined />
-                    </a>
-                  </Dropdown>
-                ) : null} */}
+                <div class="dropdown">
+                  <p>Seasons</p>
+                  <div class="dropdown-content">Hello</div>
+                </div>
               </div>
               <div className="info-content">
                 <p>
@@ -273,6 +278,12 @@ const EpisodicOmdb = () => {
                   </span>{" "}
                   {seriesResult.Genre}
                 </p>
+                <p>
+                  <span className="title-first">
+                    <b>Plot</b>:&nbsp;
+                  </span>{" "}
+                  {seriesResult.Plot}
+                </p>
               </div>
             </div>
           </div>
@@ -282,91 +293,28 @@ const EpisodicOmdb = () => {
       return <div>NOTHING</div>;
     }
   };
-  // const columns = [
-  //   // {
-  //   //   title: "Season",
-  //   //   dataIndex: "season",
-  //   //   key: "season",
-  //   // },
-  //   {
-  //     title: "Episode",
-  //     dataIndex: "episode",
-  //     key: "episode",
-  //   },
-  //   {
-  //     title: "Title",
-  //     dataIndex: "title",
-  //     key: "title",
-  //   },
-  //   {
-  //     title: "Released",
-  //     dataIndex: "released",
-  //     key: "released",
-  //   },
-  //   // {
-  //   //   title: "Release Year",
-  //   //   dataIndex: "releaseYear",
-  //   //   key: "releaseYear",
-  //   // },
-  //   {
-  //     title: "IMDB ID",
-  //     dataIndex: "imdbid",
-  //     key: "imdbid",
-  //   },
-  //   // {
-  //   //   title: "Plot",
-  //   //   dataIndex: "plot",
-  //   //   key: "plot",
-  //   // },
-  // ];
 
-  // const data = seasonArray
-  //   ? seasonArray.map((item) => {
-  //       console.log(item);
-  //     })
-  //   : null;
-
-  // const data = seasonArray.map((item) => {
-  //   console.log(item);
-  //   return item.Episodes.map((d, index) => {
-  //     console.log(d);
-  //     return {
-  //       key: index,
-  //       episode: d.Episode,
-  //       title: d.Title,
-  //       released: d.Released,
-  //       imdbid: d.imdbID,
-  //     };
-  //   });
-  // });
-
-  const renderMaterialData = seasonArray.map((item) => {
-    console.log(item);
-    const epNum = item.Episodes;
-    return {
-      season: item.Season,
-      episodename: epNum.map((ep) => {
-        return <p>{ep.Title}</p>;
-      }),
-      episodenum: epNum.map((ep) => {
-        return <p>{ep.Episode}</p>;
-      }),
-      released: epNum.map((ep) => {
-        return <p>{ep.Released}</p>;
-      }),
-      imdbid: epNum.map((ep) => {
-        return <p>{ep.imdbID}</p>;
-      }),
-    };
-    // item.Episodes.map((d) => {
-    //   return {
-    //     episode: d.Episode,
-    //     title: d.Title,
-    //     released: d.Released,
-    //     imdbid: d.imdbID,
-    //   };
-    // });
-  });
+  const renderMaterialData = seasonArray
+    ? seasonArray.map((item) => {
+        console.log(item);
+        const epNum = item.Episodes;
+        return {
+          season: item.Season,
+          episodename: epNum.map((ep) => {
+            return <p>{ep.Title}</p>;
+          }),
+          episodenum: epNum.map((ep) => {
+            return <p>{ep.Episode}</p>;
+          }),
+          released: epNum.map((ep) => {
+            return <p>{ep.Released}</p>;
+          }),
+          imdbid: epNum.map((ep) => {
+            return <p>{ep.imdbID}</p>;
+          }),
+        };
+      })
+    : null;
 
   // const renderMaterialData = () => {
   //   let epArray = [];
@@ -495,4 +443,4 @@ const EpisodicOmdb = () => {
   );
 };
 
-export default EpisodicOmdb;
+export default TestEp;
