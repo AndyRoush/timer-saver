@@ -200,6 +200,14 @@ const EpisodicOmdb = () => {
                     link={`https://www.imdb.com/title/${seriesResult.imdbID}/companycredits?ref_=tt_dt_co`}
                   />
                 </p>
+                <p>
+                  <span className="title-first">
+                    <b>Cast & Crew:</b>
+                  </span>
+                  <LinkButton
+                    link={`https://www.imdb.com/title/${seriesResult.imdbID}/fullcredits/?ref_=tt_ql_cl`}
+                  />
+                </p>
                 {seriesResult.totalSeasons ? (
                   <p>
                     <span className="title-first">
@@ -235,13 +243,7 @@ const EpisodicOmdb = () => {
                   <span className="title-first">
                     <b>IMDB ID</b>:&nbsp;
                   </span>{" "}
-                  <a
-                    href={`https://www.imdb.com/title/${seriesResult.imdbID}/releaseinfo?ref_=tt_ov_rdat`}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {seriesResult.imdbID}
-                  </a>
+                  <span>{seriesResult.imdbID}</span>
                 </p>
                 <p>
                   <span className="title-first">
@@ -274,6 +276,14 @@ const EpisodicOmdb = () => {
                   {seriesResult.Genre}
                 </p>
               </div>
+            </div>
+            <div class="synopsis-section">
+              <p>
+                <span className="title-first">
+                  <b>Synopsis</b>:&nbsp;
+                </span>
+                {seriesResult.Plot}
+              </p>
             </div>
           </div>
         </div>

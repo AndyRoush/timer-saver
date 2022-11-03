@@ -1,5 +1,5 @@
 .title-name {
-  color: #ffc045;
+  color: #ff8100;
 }
 
 .title-date {
@@ -11,7 +11,7 @@
 }
 
 .ep-md-img {
-  width: 200px;
+  width: 250px;
 }
 
 .md-border-padding {
@@ -42,10 +42,9 @@
 .content-header {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
 }
 
-.content-header h3 {
+.content-header h2 {
   display: inline;
   margin-bottom: 0;
 }
@@ -81,4 +80,8 @@
   background: #272e38;
   border: 1px solid #393e46;
   outline: none;
+}
+
+.synopsis-section {
+  padding-top: 20px;
 }

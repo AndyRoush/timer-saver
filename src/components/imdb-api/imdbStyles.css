@@ -1,0 +1,234 @@
+.talent-card-wrapper {
+  color: #e7e7e7;
+  border: 1px solid #393e46;
+  border-radius: 3px;
+  padding: 10px;
+  background-color: #2e3642;
+  display: inline-grid;
+  grid-template-columns: 70px 1fr;
+  gap: 20px;
+}
+
+.talent-card-img {
+  max-width: 100%;
+}
+
+.talent-img-wrapper {
+  height: 60px;
+  overflow: hidden;
+}
+
+.talent-table {
+  width: 65%;
+  margin: auto;
+}
+
+.season-table {
+  width: 100%;
+}
+
+.talent-table-img {
+  width: 32px;
+  height: 44px;
+}
+
+.season-table-img {
+  width: 60px;
+  height: 48px;
+}
+
+#talent-table-tr:nth-child(odd) {
+  background-color: #2e3642;
+}
+
+#talent-table-tr td {
+  padding: 1px 10px;
+}
+
+#talent-table-tr th {
+  text-align: center;
+  padding: 5px;
+  color: #ffc045;
+  font-weight: 500;
+}
+
+.original-title {
+  padding: 0 10px;
+  font-size: small;
+}
+
+.primary-photo {
+  width: 32px;
+  padding-left: 0 !important;
+}
+
+.dot-separator {
+  padding: 0 10px;
+}
+
+.under-title-grid {
+  padding: 1px 0 10px 0;
+}
+
+.prev-season-btn {
+  background-color: transparent;
+  border: 1px solid #00adb5;
+  color: #eeeeee;
+  padding: 4px 25px;
+  font-size: 16px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: 0.1s linear;
+}
+
+.prev-season-btn:hover {
+  background-color: #00adb5;
+  transition: 0.1s linear;
+}
+
+/* dropdown start */
+.dropbtn {
+  background-color: #00adb5;
+  color: #eeeeee;
+  padding: 5px 25px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: 0.1s linear;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #2e3642;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content span {
+  color: #eeeeee;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content span:hover {
+  background-color: #3b4655;
+  cursor: pointer;
+  color: #eeeeee;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #018991;
+}
+/* dropdown end */
+
+/* modal start */
+/* Modal Header */
+.modal-wrapper {
+  width: 95%;
+  margin: 5% auto;
+  border: 1px solid #3b4655;
+  border-radius: 3px;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #00adb5;
+  color: white;
+  border-bottom: none !important;
+}
+
+.close {
+  font-size: x-large;
+}
+
+.close:hover {
+  cursor: pointer;
+}
+
+/* Modal Body */
+.custom-modal-body {
+  background: #222831;
+  color: #eeeeee;
+}
+
+/* Modal Footer */
+.custom-modal-footer {
+  padding: 10px 16px;
+  background-color: #00adb5;
+  text-align: center;
+}
+
+.custom-modal-footer button {
+  background-color: #017c83;
+  color: #eeeeee;
+  padding: 5px 25px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+/* Modal Content */
+.modal-content-show {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+.modal-content-hide {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+/* Add Animation */
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+/* modal end */

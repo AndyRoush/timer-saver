@@ -71,7 +71,7 @@ function OmdbApi() {
     setNoResults("");
     setRespError("");
     console.log("handlesubmit");
-    const dataArray = inputVal.split(";");
+    const dataArray = inputVal.split(" ");
     loopIds(dataArray);
   };
 
@@ -201,7 +201,7 @@ function OmdbApi() {
     <div>
       <div className="form-wrapper">
         <form onSubmit={handleSubmit}>
-          <input type="text" onChange={getInputValue} className="input-bar" />
+          <input type="text" onChange={getInputValue} className="input-bar" placeholder="Paste values with a space between" />
           {respError ? (
             <Alert variant="danger" className="alerts">
               {respError}

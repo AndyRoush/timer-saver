@@ -1,5 +1,5 @@
 .ep-md-img {
-  width: 200px;
+  width: 250px;
 }
 
 .md-border-padding {
@@ -29,12 +29,9 @@
 .content-header {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
 }
 
-.content-header h3 {
+.content-header h2 {
   display: inline;
   margin-bottom: 0;
 }
-
-
