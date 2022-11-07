@@ -7,10 +7,10 @@ import { DownOutlined } from "@ant-design/icons";
 
 // components
 import LinkButton from "../external-link-button/ExternalLinkButton";
-import TalentCard from "./TalentCard";
 
 // css
 import "../episodic-omdb/EpisodicOmdb.css";
+import "./imdbStyles.css";
 
 // Bootstrap
 // import Table from "react-bootstrap/Table";
@@ -73,6 +73,7 @@ const ImdbSingleSearch = () => {
   const [search, setSearch] = useState("");
   const [topLoading, setTopLoading] = useState(false);
   const [bottomLoading, setBottomLoading] = useState(false);
+  const [thirdPartyLoading, setThirdPartyLoading] = useState(false);
   const [respError, setRespError] = useState("");
   const [noResults, setNoResults] = useState("");
   const [seriesResult, setSeriesResult] = useState([]);
@@ -80,6 +81,7 @@ const ImdbSingleSearch = () => {
   const [talentSectionShow, setTalentSectionShow] = useState(false);
   const [imdbId, setImdbId] = useState("");
   const [modalShow, setModalShow] = useState(false);
+  const [modalContentLoading, setModalContentLoading] = useState(false);
   const [seasonInfo, setSeasonInfo] = useState([]);
   const [thirdPartyShow, setThirdPartyShow] = useState(false);
   const [thirdPartyData, setThirdPartyData] = useState([]);
@@ -119,6 +121,7 @@ const ImdbSingleSearch = () => {
   // It's then used to generate the info used in the modal pop up
   const fetchSeasonInfo = (e, id, snumber) => {
     e.preventDefault();
+    setModalContentLoading(true);
     fetch(
       `https://imdb-api.com/en/API/SeasonEpisodes/${apiKey}/${id}/${snumber}`,
       requestOptions
@@ -127,6 +130,7 @@ const ImdbSingleSearch = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        setModalContentLoading(false);
         setSeasonInfo(data);
       })
       .catch((error) => console.log("error", error));
@@ -135,6 +139,7 @@ const ImdbSingleSearch = () => {
   // This function fetched the third party links we can use to search additional sites with.
   const fetchThirdPartyData = (e, id) => {
     e.preventDefault();
+    setThirdPartyLoading(true);
     fetch(
       `https://imdb-api.com/en/API/ExternalSites/${apiKey}/${id}`,
       requestOptions
@@ -143,6 +148,7 @@ const ImdbSingleSearch = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        setThirdPartyLoading(false);
         setThirdPartyData(data);
       })
       .catch((error) => console.log("error", error));
@@ -231,8 +237,8 @@ const ImdbSingleSearch = () => {
           <div className="content">
             <div className="content-header">
               <h2 className="title">
-                <span className="title-name">{seriesResult.title}</span>{" "}
-                <span className="title-date">({seriesResult.year})</span>
+                <span className="title-name">{seriesResult.title}</span>
+                {/* <span className="title-date">({seriesResult.year})</span> */}
               </h2>
               {seriesResult.originalTitle !== "" ? (
                 <p class="original-title">
@@ -265,6 +271,14 @@ const ImdbSingleSearch = () => {
                 <i>{seriesResult.contentRating}</i>
               </span>
               <span className="dot-separator">•</span>
+              {seriesResult.runtimeStr ? (
+                <>
+                  <span>
+                    <i>{seriesResult.runtimeStr}</i>
+                  </span>
+                  <span className="dot-separator">•</span>
+                </>
+              ) : null}
               <span
                 onClick={(e) => {
                   setThirdPartyShow(true);
@@ -286,9 +300,11 @@ const ImdbSingleSearch = () => {
                         </span>
                       </td>
                       <td>
-                        <span className="margin-right">
-                          {seriesResult.releaseDate}
-                        </span>
+                        {seriesResult.releaseDate ? (
+                          <span className="margin-right">
+                            {seriesResult.releaseDate}
+                          </span>
+                        ) : null}
                         <LinkButton
                           link={`https://www.imdb.com/title/${seriesResult.id}/releaseinfo?ref_=tt_dt_rdat`}
                         />
@@ -309,7 +325,11 @@ const ImdbSingleSearch = () => {
                         </span>
                       </td>
                       <td>
-                        {seriesResult.runtimeMins}
+                        {seriesResult.runtimeMins ? (
+                          <span className="margin-right">
+                            {seriesResult.runtimeMins}
+                          </span>
+                        ) : null}
                         <LinkButton
                           link={`https://www.imdb.com/title/${seriesResult.id}/technical?ref_=tt_spec_sm`}
                         />
@@ -605,32 +625,43 @@ const ImdbSingleSearch = () => {
       </div>
       <div className={modalShow ? "modal-content-show" : "modal-content-hide"}>
         <div className="modal-wrapper">
-          <div className="modal-header">
-            <h2 className="fw-4">{seasonInfo.fullTitle}</h2>
-            <span className="close" onClick={() => setModalShow(false)}>
-              &times;
-            </span>
-          </div>
-          <div className="custom-modal-body">
-            <table className="season-table">
-              <tbody>
-                <tr id="talent-table-tr">
-                  <th>Image</th>
-                  <th>Season</th>
-                  <th>Episode</th>
-                  <th>Year</th>
-                  <th>Title</th>
-                  <th>Released</th>
-                  <th>Plot</th>
-                  <th>ID</th>
-                </tr>
-                {renderCustomModal()}
-              </tbody>
-            </table>
-          </div>
-          <div className="custom-modal-footer">
-            <button onClick={() => setModalShow(false)}>Close</button>
-          </div>
+          {modalContentLoading ? (
+            <div className="spinner-wrapper">
+              <Space size="middle">
+                <Spin size="large" />
+              </Space>
+            </div>
+          ) : (
+            <>
+              {" "}
+              <div className="modal-header">
+                <h2 className="fw-4">{seasonInfo.fullTitle}</h2>
+                <span className="close" onClick={() => setModalShow(false)}>
+                  &times;
+                </span>
+              </div>
+              <div className="custom-modal-body">
+                <table className="season-table">
+                  <thead>
+                    <tr id="season-table-tr">
+                      <th>Image</th>
+                      <th>Season</th>
+                      <th>Episode</th>
+                      <th>Year</th>
+                      <th>Title</th>
+                      <th>Released</th>
+                      <th>Plot</th>
+                      <th>ID</th>
+                    </tr>
+                  </thead>
+                  <tbody>{renderCustomModal()}</tbody>
+                </table>
+              </div>
+              <div className="custom-modal-footer">
+                <button onClick={() => setModalShow(false)}>Close</button>
+              </div>
+            </>
+          )}
         </div>
       </div>
       {topLoading ? (
@@ -654,15 +685,23 @@ const ImdbSingleSearch = () => {
               className="input-bar"
             />
           </form>
-          <table className="season-table">
-            <tbody>
-              <tr id="talent-table-tr">
-                <th className="table-header-30">Website</th>
-                <th>Link</th>
-              </tr>
-              {renderThirdPartyDisplay()}
-            </tbody>
-          </table>
+          {thirdPartyLoading ? (
+            <div className="spinner-wrapper">
+              <Space size="middle">
+                <Spin size="large" />
+              </Space>
+            </div>
+          ) : (
+            <table className="season-table">
+              <tbody>
+                <tr id="talent-table-tr">
+                  <th className="table-header-30">Website</th>
+                  <th>Link</th>
+                </tr>
+                {renderThirdPartyDisplay()}
+              </tbody>
+            </table>
+          )}
         </div>
       ) : null}
       {talentSectionShow ? (

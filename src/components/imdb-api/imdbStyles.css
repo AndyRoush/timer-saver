@@ -51,7 +51,8 @@
 }
 
 #talent-table-tr th,
-#external-site-table-tr th {
+#external-site-table-tr th,
+#season-table-tr th {
   padding: 6px 10px;
   color: #ffc045;
   font-weight: 500;
@@ -123,6 +124,8 @@
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  height: 420px;
+  overflow: auto;
 }
 
 /* Links inside the dropdown */
@@ -196,6 +199,12 @@
   border: none;
   cursor: pointer;
   border-radius: 2px;
+  transition: 0.1s linear;
+}
+
+.custom-modal-footer button:hover {
+  background-color: #016c72;
+  transition: 0.1s linear;
 }
 
 /* Modal Content */
@@ -265,6 +274,10 @@
 
 .main-body-table tbody tr td {
   padding: 0 5px;
+}
+
+.main-body-table tbody tr:hover {
+  background-color: #2e3642;
 }
 
 .margin-right {
