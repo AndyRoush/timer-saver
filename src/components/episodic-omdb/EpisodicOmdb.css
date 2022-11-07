@@ -4,6 +4,7 @@
 
 .title-date {
   color: #eeeeee;
+  font-size: 28px;
 }
 
 .title-first {
@@ -27,7 +28,7 @@
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 20px;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
 
 .main-display-wrapper p {

@@ -37,7 +37,8 @@
   height: 48px;
 }
 
-#talent-table-tr:nth-child(odd) {
+#talent-table-tr:nth-child(odd),
+#external-site-table-tr:nth-child(odd) {
   background-color: #2e3642;
 }
 
@@ -45,9 +46,13 @@
   padding: 1px 10px;
 }
 
-#talent-table-tr th {
-  text-align: center;
-  padding: 5px;
+#external-site-table-tr td {
+  padding: 6px 10px;
+}
+
+#talent-table-tr th,
+#external-site-table-tr th {
+  padding: 6px 10px;
   color: #ffc045;
   font-weight: 500;
 }
@@ -85,6 +90,11 @@
 .prev-season-btn:hover {
   background-color: #00adb5;
   transition: 0.1s linear;
+}
+
+.prev-season-btn,
+.dropdown {
+  margin-top: 5px;
 }
 
 /* dropdown start */
@@ -232,3 +242,31 @@
   }
 }
 /* modal end */
+
+.external-links {
+  color: #00adb5;
+}
+.external-links:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.table-header-30 {
+  width: 30%;
+}
+
+.third-party-search-form {
+  margin-bottom: 8px;
+}
+
+.main-body-table tbody tr td a {
+  margin-left: 0;
+}
+
+.main-body-table tbody tr td {
+  padding: 0 5px;
+}
+
+.margin-right {
+  margin-right: 10px;
+}

@@ -34,6 +34,7 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import { FlashOffRounded } from "@material-ui/icons";
+import Item from "antd/lib/list/Item";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -69,6 +70,7 @@ const ImdbSingleSearch = () => {
   };
 
   const [inputVal, setInputVal] = useState("");
+  const [search, setSearch] = useState("");
   const [topLoading, setTopLoading] = useState(false);
   const [bottomLoading, setBottomLoading] = useState(false);
   const [respError, setRespError] = useState("");
@@ -79,11 +81,14 @@ const ImdbSingleSearch = () => {
   const [imdbId, setImdbId] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [seasonInfo, setSeasonInfo] = useState([]);
+  const [thirdPartyShow, setThirdPartyShow] = useState(false);
+  const [thirdPartyData, setThirdPartyData] = useState([]);
 
   const getInputValue = (e) => {
     setInputVal(e.target.value);
   };
 
+  // This submit handle the top most (and first) search with the IMDB ID
   const handleSubmit = (e) => {
     setTopLoading(true);
     console.log(inputVal);
@@ -104,10 +109,14 @@ const ImdbSingleSearch = () => {
         setTopLoading(false);
         setMainDisp(true);
         setTalentSectionShow(true);
+        setThirdPartyData([]);
+        setThirdPartyShow(false);
       })
       .catch((error) => console.log("error", error));
   };
 
+  // This function will fetch the season information when the user clicks on the season number on the season dropdown.
+  // It's then used to generate the info used in the modal pop up
   const fetchSeasonInfo = (e, id, snumber) => {
     e.preventDefault();
     fetch(
@@ -123,6 +132,23 @@ const ImdbSingleSearch = () => {
       .catch((error) => console.log("error", error));
   };
 
+  // This function fetched the third party links we can use to search additional sites with.
+  const fetchThirdPartyData = (e, id) => {
+    e.preventDefault();
+    fetch(
+      `https://imdb-api.com/en/API/ExternalSites/${apiKey}/${id}`,
+      requestOptions
+    )
+      .then(handleErrors)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setThirdPartyData(data);
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+  // error handling.
   function handleErrors(response) {
     setRespError(response.Error);
     if (response.Error) throw Error(response.Error);
@@ -130,8 +156,10 @@ const ImdbSingleSearch = () => {
     return response;
   }
 
+  // This renders the main display after the user searches with the IMDB ID.
   const renderMainDisplay = () => {
     if (seriesResult) {
+      // Render the directors with the array the API gives us so we can have a direct link to the corresponding IMDB page.
       const renderDirectors = () => {
         if (seriesResult) {
           let directorListArray = seriesResult.directorList;
@@ -153,6 +181,8 @@ const ImdbSingleSearch = () => {
           return directorList;
         } else return;
       };
+
+      // Render the writers with the array the API gives us so we can have a direct link to the corresponding IMDB page.
       const renderWriters = () => {
         if (seriesResult) {
           let writersListArray = seriesResult.writerList;
@@ -175,6 +205,7 @@ const ImdbSingleSearch = () => {
         } else return;
       };
 
+      // Map through the season array the API gives us to display the season dropdown the user will use to search the seasons.
       const renderSeasonDropdownItems = () => {
         if (seriesResult) {
           let seriesResultArray = seriesResult.tvSeriesInfo.seasons;
@@ -233,71 +264,115 @@ const ImdbSingleSearch = () => {
               <span>
                 <i>{seriesResult.contentRating}</i>
               </span>
+              <span className="dot-separator">•</span>
+              <span
+                onClick={(e) => {
+                  setThirdPartyShow(true);
+                  fetchThirdPartyData(e, seriesResult.id);
+                }}
+                className="external-links"
+              >
+                <i>Click to view external website links</i>
+              </span>
             </div>
             <div className="content-inner">
               <div className="info-content">
-                <p>
-                  <span className="title-first">
-                    <b>Release date</b>:&nbsp;
-                  </span>
-                  {seriesResult.releaseDate}
-                  <LinkButton
-                    link={`https://www.imdb.com/title/${seriesResult.id}/releaseinfo?ref_=tt_dt_rdat`}
-                  />
-                </p>
-                <p>
-                  <span className="title-first">
-                    <b>Release year</b>:&nbsp;
-                  </span>
-                  {seriesResult.year}
-                </p>
-                <p>
-                  <span className="title-first">
-                    <b>Runtime</b>:&nbsp;
-                  </span>
-                  {seriesResult.runtimeMins}
-                  <LinkButton
-                    link={`https://www.imdb.com/title/${seriesResult.id}/technical?ref_=tt_spec_sm`}
-                  />
-                </p>
-                <p>
-                  <span className="title-first">
-                    <b>Company Credits:</b>
-                  </span>
-                  <LinkButton
-                    link={`https://www.imdb.com/title/${seriesResult.id}/companycredits?ref_=tt_dt_co`}
-                  />
-                </p>
-                <p>
-                  <span className="title-first">
-                    <b>Companies</b>:&nbsp;
-                  </span>{" "}
-                  <span>{seriesResult.companies}</span>
-                </p>
-                <p>
-                  <span className="title-first">
-                    <b>Cast & Crew:</b>
-                  </span>
-                  <LinkButton
-                    link={`https://www.imdb.com/title/${seriesResult.id}/fullcredits/?ref_=tt_ql_cl`}
-                  />
-                </p>
-                <p>
-                  <span className="title-first">
-                    <b>Technical Specs:</b>
-                  </span>
-                  <LinkButton
-                    link={`https://www.imdb.com/title/${seriesResult.id}/technical?ref_=ttloc_ql_6`}
-                  />
-                </p>
-                <p>
-                  <span className="title-first">
-                    <b>Filming & Production:</b>
-                  </span>
-                  <LinkButton
-                    link={`https://www.imdb.com/title/${seriesResult.id}/locations?ref_=ttspec_ql_5`}
-                  />
-                </p>
+                <table className="main-body-table">
+                  <tbody>
+                    <tr>
+                      <td style={{ width: "30%" }}>
+                        <span className="title-first">
+                          <b>Release date</b>
+                        </span>
+                      </td>
+                      <td>
+                        <span className="margin-right">
+                          {seriesResult.releaseDate}
+                        </span>
+                        <LinkButton
+                          link={`https://www.imdb.com/title/${seriesResult.id}/releaseinfo?ref_=tt_dt_rdat`}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="title-first">
+                          <b>Release year</b>
+                        </span>
+                      </td>
+                      <td>{seriesResult.year}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="title-first">
+                          <b>Runtime</b>
+                        </span>
+                      </td>
+                      <td>
+                        {seriesResult.runtimeMins}
+                        <LinkButton
+                          link={`https://www.imdb.com/title/${seriesResult.id}/technical?ref_=tt_spec_sm`}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="title-first">
+                          <b>Company Credits</b>
+                        </span>
+                      </td>
+                      <td>
+                        <LinkButton
+                          link={`https://www.imdb.com/title/${seriesResult.id}/companycredits?ref_=tt_dt_co`}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="title-first">
+                          <b>Companies</b>
+                        </span>
+                      </td>
+                      <td>{seriesResult.companies}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="title-first">
+                          <b>Cast & Crew</b>
+                        </span>
+                      </td>
+                      <td>
+                        <LinkButton
+                          link={`https://www.imdb.com/title/${seriesResult.id}/fullcredits/?ref_=tt_ql_cl`}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="title-first">
+                          <b>Technical Specs</b>
+                        </span>
+                      </td>
+                      <td>
+                        <LinkButton
+                          link={`https://www.imdb.com/title/${seriesResult.id}/technical?ref_=ttloc_ql_6`}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="title-first">
+                          <b>Filming & Production</b>
+                        </span>
+                      </td>
+                      <td>
+                        <LinkButton
+                          link={`https://www.imdb.com/title/${seriesResult.id}/locations?ref_=ttspec_ql_5`}
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
                 {seriesResult.seasons ? (
                   <p>
                     <span className="title-first">
@@ -326,55 +401,78 @@ const ImdbSingleSearch = () => {
                   </button>
                 ) : null}
               </div>
+
               <div className="info-content">
-                <p>
-                  <span className="title-first">
-                    <b>IMDB ID</b>:&nbsp;
-                  </span>{" "}
-                  <span>{seriesResult.id}</span>
-                </p>
-                <p>
-                  <span className="title-first">
-                    <b>Countries</b>:&nbsp;
-                  </span>{" "}
-                  {seriesResult.countries}
-                </p>
-                <p>
-                  <span className="title-first">
-                    <b>Directors</b>:&nbsp;
-                  </span>{" "}
-                  {renderDirectors()}
-                </p>
-                <p>
-                  <span className="title-first">
-                    <b>Writers</b>:&nbsp;
-                  </span>{" "}
-                  {renderWriters()}
-                </p>
-                <p>
-                  <span className="title-first">
-                    <b>Actors</b>:&nbsp;
-                  </span>{" "}
-                  {seriesResult.stars}
-                </p>
-                <p>
-                  <span className="title-first">
-                    <b>Language</b>:&nbsp;
-                  </span>{" "}
-                  {seriesResult.languages}
-                </p>
-                <p>
-                  <span className="title-first">
-                    <b>Genre</b>:&nbsp;
-                  </span>{" "}
-                  {seriesResult.genres}
-                </p>
-                <p>
-                  <span className="title-first">
-                    <b>Synopsis</b>:&nbsp;
-                  </span>
-                  {seriesResult.plot}
-                </p>
+                <table className="main-body-table">
+                  <tbody>
+                    <tr>
+                      <td style={{ width: "20%" }}>
+                        <span className="title-first">
+                          <b>IMDB ID</b>
+                        </span>
+                      </td>
+                      <td>
+                        <span>{seriesResult.id}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="title-first">
+                          <b>Countries</b>
+                        </span>
+                      </td>
+                      <td>{seriesResult.countries}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="title-first">
+                          <b>Directors</b>
+                        </span>
+                      </td>
+                      <td>{renderDirectors()}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="title-first">
+                          <b>Writers</b>
+                        </span>
+                      </td>
+                      <td>{renderWriters()}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="title-first">
+                          <b>Actors</b>
+                        </span>
+                      </td>
+                      <td>{seriesResult.stars}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="title-first">
+                          <b>Language</b>
+                        </span>
+                      </td>
+                      <td>{seriesResult.languages}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="title-first">
+                          <b>Genre</b>
+                        </span>
+                      </td>
+                      <td>{seriesResult.genres}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="title-first">
+                          <b>Synopsis</b>
+                        </span>
+                      </td>
+                      <td>{seriesResult.plot}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -383,6 +481,41 @@ const ImdbSingleSearch = () => {
     } else if (seriesResult.length <= 0) {
       return <div>NOTHING</div>;
     }
+  };
+
+  const renderThirdPartyDisplay = () => {
+    if (thirdPartyData && thirdPartyData.fullTitle) {
+      let entries = Object.entries(thirdPartyData);
+      console.log(entries);
+      let data = entries
+        .filter((name) => {
+          return search.toLowerCase() === ""
+            ? name[0]
+            : name[0].toLowerCase().includes(search);
+        })
+        .map(([k, value]) => {
+          if (
+            typeof value === "object" &&
+            value !== null &&
+            k !== "wikipediaUrls"
+          ) {
+            //   console.log(`${key}: ${value.url}`);
+            return (
+              <tr id="external-site-table-tr">
+                <td>{k}</td>
+                <td className="primary-photo">
+                  <a href={value.url} target="_blank" rel="noopener noreferrer">
+                    {value.url}
+                  </a>
+                </td>
+              </tr>
+            );
+          } else {
+            console.log(value);
+          }
+        });
+      return data;
+    } else return;
   };
 
   const renderTalentDisplay = () => {
@@ -471,7 +604,7 @@ const ImdbSingleSearch = () => {
         </form>
       </div>
       <div className={modalShow ? "modal-content-show" : "modal-content-hide"}>
-        <div class="modal-wrapper">
+        <div className="modal-wrapper">
           <div className="modal-header">
             <h2 className="fw-4">{seasonInfo.fullTitle}</h2>
             <span className="close" onClick={() => setModalShow(false)}>
@@ -509,6 +642,28 @@ const ImdbSingleSearch = () => {
       ) : null}
       {mainDisp ? (
         <div className="md-border-padding">{renderMainDisplay()}</div>
+      ) : null}
+      {thirdPartyShow ? (
+        <div className="md-border-padding">
+          <h2 className="main-title-header">- External Sites -</h2>
+          <form onSubmit={handleSubmit} className="third-party-search-form">
+            <input
+              type="text"
+              placeholder="Type here to search ..."
+              onChange={(e) => setSearch(e.target.value)}
+              className="input-bar"
+            />
+          </form>
+          <table className="season-table">
+            <tbody>
+              <tr id="talent-table-tr">
+                <th className="table-header-30">Website</th>
+                <th>Link</th>
+              </tr>
+              {renderThirdPartyDisplay()}
+            </tbody>
+          </table>
+        </div>
       ) : null}
       {talentSectionShow ? (
         <div className="md-border-padding talent-section-grid">
