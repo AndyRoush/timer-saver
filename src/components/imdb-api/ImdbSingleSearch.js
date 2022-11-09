@@ -1,9 +1,10 @@
 // import { render } from "@testing-library/react";
-import React, { useState, forwardRef, useEffect } from "react";
+import React, { useState, forwardRef, useRef, useEffect } from "react";
 import MaterialTable from "material-table";
 import { Table, Spin, Tag, Space } from "antd";
-import { Menu, Dropdown } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+import { DownloadTableExcel } from "react-export-table-to-excel";
+// import { Menu, Dropdown } from "antd";
+// import { DownOutlined } from "@ant-design/icons";
 
 // components
 import LinkButton from "../external-link-button/ExternalLinkButton";
@@ -14,7 +15,7 @@ import "./imdbStyles.css";
 
 // Bootstrap
 // import Table from "react-bootstrap/Table";
-import Spinner from "react-bootstrap/Spinner";
+// import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 
 // Material Icons
@@ -33,8 +34,6 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
-import { FlashOffRounded } from "@material-ui/icons";
-import Item from "antd/lib/list/Item";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -62,6 +61,9 @@ const tableIcons = {
 
 const ImdbSingleSearch = () => {
   const apiKey = process.env.REACT_APP_IMDB_KEY;
+
+  // refs
+  const talentTableRef = useRef(null);
 
   // request ops for IMDB API
   const requestOptions = {
@@ -633,7 +635,6 @@ const ImdbSingleSearch = () => {
             </div>
           ) : (
             <>
-              {" "}
               <div className="modal-header">
                 <h2 className="fw-4">{seasonInfo.fullTitle}</h2>
                 <span className="close" onClick={() => setModalShow(false)}>
@@ -707,7 +708,17 @@ const ImdbSingleSearch = () => {
       {talentSectionShow ? (
         <div className="md-border-padding talent-section-grid">
           <h2 className="main-title-header">- Series Cast -</h2>
-          <table className="talent-table">
+          <p>
+            {/* <DownloadTableExcel
+              filename={seriesResult.fullTitle}
+              sheet="talent"
+              currentTableRef={talentTableRef.current}
+            >
+              <button> Export excel </button>
+            </DownloadTableExcel> */}
+          </p>
+          {/* <table className="talent-table" ref={talentTableRef}> */}
+          <table className="talent-table" ref={talentTableRef}>
             <tbody>{renderTalentDisplay()}</tbody>
           </table>
         </div>

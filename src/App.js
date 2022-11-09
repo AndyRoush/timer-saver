@@ -13,6 +13,7 @@ import OmdbApi from "./components/omdb-api/OmdbApi";
 // import EpisodicOmdb from "./components/episodic-omdb/EpisodicOmdb";
 // import TestEp from "./components/episodic-omdb/TestEp";
 import ImdbSingleSearch from "./components/imdb-api/ImdbSingleSearch";
+import ImdbTalentSearch from "./components/imdb-api/ImdbTalentSearch";
 
 const { TabPane } = Tabs;
 
@@ -20,12 +21,15 @@ function App() {
   return (
     <div className="App">
       <div class="main-content-wrapper">
-        <Tabs defaultActiveKey="1" centered>
+        <Tabs defaultActiveKey="3" centered>
           <TabPane tab="Title Search" key="1">
             <ImdbSingleSearch />
           </TabPane>
           <TabPane tab="Bulk Search" key="2">
             <OmdbApi />
+          </TabPane>
+          <TabPane tab="Talent Search" key="3">
+            <ImdbTalentSearch />
           </TabPane>
           {/* <TabPane tab="IMDB-API" key="3">
           <ImdbApi />
