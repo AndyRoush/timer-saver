@@ -59,7 +59,7 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-const ImdbTalentSearch = () => {
+const ImdbTalentSearch = (props) => {
   const apiKey = process.env.REACT_APP_IMDB_KEY;
 
   // refs
@@ -98,11 +98,18 @@ const ImdbTalentSearch = () => {
       .then(handleErrors)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        settalentResult(data);
-        setTopLoading(false);
-        setMainDisp(true);
-        setTalentSectionShow(true);
+        if (data.errorMessage === "") {
+          console.log(data);
+          settalentResult(data);
+          setTopLoading(false);
+          setMainDisp(true);
+          setTalentSectionShow(true);
+        } else {
+          setRespError(data.errorMessage);
+          setTopLoading(false);
+          setMainDisp(false);
+          setTalentSectionShow(false);
+        }
       })
       .catch((error) => console.log("error", error));
   };
@@ -147,11 +154,11 @@ const ImdbTalentSearch = () => {
             </div>
             <div className="content-inner">
               <div className="info-content">
-                <table className="main-body-table">
+                <table className={`main-body-table-${props.themeType}`}>
                   <tbody>
                     <tr>
                       <td style={{ width: "30%" }}>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Birth date</b>
                         </span>
                       </td>
@@ -159,7 +166,7 @@ const ImdbTalentSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Death Date</b>
                         </span>
                       </td>
@@ -167,7 +174,7 @@ const ImdbTalentSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Height</b>
                         </span>
                       </td>
@@ -175,7 +182,7 @@ const ImdbTalentSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Known For</b>
                         </span>
                       </td>
@@ -183,7 +190,7 @@ const ImdbTalentSearch = () => {
                     </tr>
                     <tr>
                       <td style={{ width: "30%" }}>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Awards</b>
                         </span>
                       </td>
@@ -194,11 +201,11 @@ const ImdbTalentSearch = () => {
               </div>
 
               <div className="info-content">
-                <table className="main-body-table">
+                <table className={`main-body-table-${props.themeType}`}>
                   <tbody>
                     <tr>
                       <td style={{ width: "20%" }}>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Summary</b>
                         </span>
                       </td>
@@ -224,7 +231,7 @@ const ImdbTalentSearch = () => {
       let knownForReturn = knownforArray.map(function (knownInfo) {
         const pathToTalent = `https://www.imdb.com/title/${knownInfo.id}/?ref_=ttfc_fc_cl_t1`;
         return (
-          <tr id="talent-table-tr">
+          <tr id={`talent-table-tr-${props.themeType}`}>
             <td className="primary-photo">
               <img
                 src={knownInfo.image}
@@ -253,26 +260,32 @@ const ImdbTalentSearch = () => {
   const renderCastMoviesDisplay = () => {
     if (talentResult) {
       let castArray = talentResult.castMovies;
-      let castMoviesReturn = castArray.map(function (movies) {
-        const pathToTalent = `https://www.imdb.com/title/${movies.id}/?ref_=ttfc_fc_cl_t1`;
-        return (
-          <tr id="talent-table-tr">
-            <td>
-              <a href={pathToTalent} target="_blank" rel="noopener noreferrer">
-                {movies.title}
-              </a>
-            </td>
-            <td>{movies.year}</td>
-            <td>
-              <span>{movies.role}</span>
-            </td>
-            <td>
-              <span>{movies.description}</span>
-            </td>
-            <td>{movies.id}</td>
-          </tr>
-        );
-      });
+      let castMoviesReturn = Array.isArray(castArray)
+        ? castArray.map(function (movies) {
+            const pathToTalent = `https://www.imdb.com/title/${movies.id}/?ref_=ttfc_fc_cl_t1`;
+            return (
+              <tr id={`talent-table-tr-${props.themeType}`}>
+                <td>
+                  <a
+                    href={pathToTalent}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {movies.title}
+                  </a>
+                </td>
+                <td>{movies.year}</td>
+                <td>
+                  <span>{movies.role}</span>
+                </td>
+                <td>
+                  <span>{movies.description}</span>
+                </td>
+                <td>{movies.id}</td>
+              </tr>
+            );
+          })
+        : null;
       return castMoviesReturn;
     } else if (talentResult.length <= 0) {
       return null;
@@ -287,14 +300,15 @@ const ImdbTalentSearch = () => {
             type="text"
             placeholder="Paste Talent ID"
             onChange={getInputValue}
-            className="input-bar"
+            // className="input-bar"
+            className={`input-bar-${props.themeType}`}
           />
           {respError ? (
             <Alert variant="danger" className="alerts">
               {respError}
             </Alert>
           ) : null}
-          <button type="submit" className="submit-button">
+          <button type="submit" className={`submit-button-${props.themeType}`}>
             Search
           </button>
         </form>
@@ -307,11 +321,15 @@ const ImdbTalentSearch = () => {
         </div>
       ) : null}
       {mainDisp ? (
-        <div className="md-border-padding">{renderMainDisplay()}</div>
+        <div className={`md-border-padding-${props.themeType}`}>
+          {renderMainDisplay()}
+        </div>
       ) : null}
       {talentSectionShow ? (
-        <div className="md-border-padding talent-section-grid">
-          <h2 className="main-title-header">- Known For -</h2>
+        <div
+          className={`md-border-padding-${props.themeType} talent-section-grid`}
+        >
+          <h2 className={`main-title-header-${props.themeType}`}>- Known For -</h2>
           <p>
             {/* <DownloadTableExcel
               filename={talentResult.fullTitle}
@@ -321,22 +339,24 @@ const ImdbTalentSearch = () => {
               <button> Export excel </button>
             </DownloadTableExcel> */}
           </p>
-          <table className="talent-table">
+          <table className={`talent-table-${props.themeType}`}>
             <tbody>{renderKnownForDisplay()}</tbody>
           </table>
         </div>
       ) : null}
       {talentSectionShow ? (
-        <div className="md-border-padding talent-section-grid">
-          <h2 className="main-title-header">- Cast Movies -</h2>
+        <div
+          className={`md-border-padding-${props.themeType} talent-section-grid talent-section-grid`}
+        >
+          <h2 className={`main-title-header-${props.themeType}`}>- Cast Movies -</h2>
           <p>
-            <DownloadTableExcel
+            {/* <DownloadTableExcel
               filename={talentResult.fullTitle}
               sheet="talent"
               currentTableRef={talentTableRef.current}
             >
               <button className="prev-season-btn"> Export to excel </button>
-            </DownloadTableExcel>
+            </DownloadTableExcel> */}
           </p>
           <table className="cast-movies-table" ref={talentTableRef}>
             <tbody>{renderCastMoviesDisplay()}</tbody>

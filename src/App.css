@@ -11,6 +11,16 @@ body {
 .App {
   padding: 50px;
   font-family: "Lato", sans-serif;
+  min-height: 100vh;
+  background-color: #222831;
+}
+
+.dark {
+  background-color: #222831;
+}
+
+.light {
+  background-color: white;
 }
 
 .main-content-wrapper {
@@ -61,6 +71,37 @@ input[type="text"] {
 .submit-button:hover {
   background-color: #00adb5;
 }
+.submit-button-dark {
+  background-color: transparent;
+  border: none;
+  color: #eeeeee;
+  padding: 5px 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 2px;
+  border: 1px solid #00adb5;
+  transition: 0.1s linear;
+}
+
+.submit-button-dark:hover {
+  background-color: #00adb5;
+}
+.submit-button-light {
+  background-color: transparent;
+  border: none;
+  color: #393e46;
+  padding: 5px 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 2px;
+  border: 1px solid #00adb5;
+  transition: 0.1s linear;
+}
+
+.submit-button-light:hover {
+  background-color: #00adb5;
+  color: #eee;
+}
 
 .spinner-wrapper {
   width: 100%;
@@ -71,12 +112,16 @@ input[type="text"] {
   font-weight: bold;
 }
 
-.error-box {
-  border: 1px solid #d44950;
+.error-box,
+.alert-danger {
+  border: 1px solid #842029 !important;
   padding: 15px;
-  background: #f8d7da;
-  color: #d44950;
+  /* background: #f8d7da; */
+  /* color: #d44950; */
   margin-bottom: 0;
+  color: #ea868f !important;
+  background-color: #2c0b0e !important;
+  /* border-color: #842029; */
 }
 
 .alerts {
@@ -202,19 +247,28 @@ tr:hover {
   z-index: 1;
 } */
 
-.dropdown-content p:hover {
+.dropdown-content-dark p:hover,
+.dropdown-content-light p:hover {
   cursor: pointer;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content-dark,
+.dropdown:hover .dropdown-content-light {
   display: block;
 }
 
-.main-title-header {
+.main-title-header-dark,
+.main-title-header-light {
   text-align: center;
-  color: #ffc045;
   font-weight: 400;
   padding: 20px 0;
+}
+
+.main-title-header-dark {
+  color: #ffc045;
+}
+.main-title-header-light {
+  color: #eb6b0a;
 }
 
 .fw-4 {

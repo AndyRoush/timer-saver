@@ -56,7 +56,7 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-const TestEp = () => {
+const TestEp = (props) => {
   const apiKey = process.env.REACT_APP_API_KEY;
 
   // request ops for IMDB API
@@ -354,7 +354,7 @@ const TestEp = () => {
         </div>
       ) : null}
       {mainDisp ? (
-        <div className="md-border-padding">{renderMainDisplay()}</div>
+        <div className={`md-border-padding-${props.themeType}`}>{renderMainDisplay()}</div>
       ) : null}
       {bottomLoading ? (
         <div className="spinner-wrapper">
@@ -364,7 +364,7 @@ const TestEp = () => {
         </div>
       ) : null}
       {table ? (
-        <div className="md-border-padding">
+        <div className={`md-border-padding-${props.themeType}`}>
           {/* <Table columns={columns} dataSource={data} /> */}
           <MaterialTable
             icons={tableIcons}

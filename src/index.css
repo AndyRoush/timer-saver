@@ -12,10 +12,10 @@ code {
     monospace;
 }
 
-#root {
+/* #root {
   min-height: 100vh;
   background-color: #222831;
-}
+} */
 
 .ant-tabs-top > .ant-tabs-nav::before,
 .ant-tabs-bottom > .ant-tabs-nav::before,

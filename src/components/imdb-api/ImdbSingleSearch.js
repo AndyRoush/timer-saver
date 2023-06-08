@@ -59,7 +59,7 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-const ImdbSingleSearch = () => {
+const ImdbSingleSearch = (props) => {
   const apiKey = process.env.REACT_APP_IMDB_KEY;
 
   // refs
@@ -107,14 +107,22 @@ const ImdbSingleSearch = () => {
       .then(handleErrors)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setSeriesResult(data);
-        setImdbId(data.imdbID);
-        setTopLoading(false);
-        setMainDisp(true);
-        setTalentSectionShow(true);
-        setThirdPartyData([]);
-        setThirdPartyShow(false);
+        if (data.errorMessage === "") {
+          console.log(data);
+          setSeriesResult(data);
+          setImdbId(data.imdbID);
+          setTopLoading(false);
+          setMainDisp(true);
+          setTalentSectionShow(true);
+          setThirdPartyData([]);
+          setThirdPartyShow(false);
+        } else {
+          setRespError(data.errorMessage);
+          setTopLoading(false);
+          setMainDisp(false);
+          setTalentSectionShow(false);
+          setThirdPartyShow(false);
+        }
       })
       .catch((error) => console.log("error", error));
   };
@@ -158,8 +166,9 @@ const ImdbSingleSearch = () => {
 
   // error handling.
   function handleErrors(response) {
-    setRespError(response.Error);
-    if (response.Error) throw Error(response.Error);
+    setRespError(response.statusText);
+    console.log(response);
+    if (response.status !== 200) throw Error(response.status);
     if (!response.ok) throw Error(response.statusText);
     return response;
   }
@@ -171,21 +180,23 @@ const ImdbSingleSearch = () => {
       const renderDirectors = () => {
         if (seriesResult) {
           let directorListArray = seriesResult.directorList;
-          let directorList = directorListArray.map(function (directors) {
-            const pathToTalent = `https://www.imdb.com/name/${directors.id}/?ref_=ttfc_fc_cl_t1`;
-            return (
-              <>
-                <a
-                  href={pathToTalent}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {directors.name}
-                </a>
-                &nbsp;
-              </>
-            );
-          });
+          let directorList = Array.isArray(directorListArray)
+            ? directorListArray.map(function (directors) {
+                const pathToTalent = `https://www.imdb.com/name/${directors.id}/?ref_=ttfc_fc_cl_t1`;
+                return (
+                  <>
+                    <a
+                      href={pathToTalent}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {directors.name}
+                    </a>
+                    &nbsp;
+                  </>
+                );
+              })
+            : null;
           return directorList;
         } else return;
       };
@@ -194,21 +205,23 @@ const ImdbSingleSearch = () => {
       const renderWriters = () => {
         if (seriesResult) {
           let writersListArray = seriesResult.writerList;
-          let writerList = writersListArray.map(function (writers) {
-            const pathToTalent = `https://www.imdb.com/name/${writers.id}/?ref_=ttfc_fc_cl_t1`;
-            return (
-              <>
-                <a
-                  href={pathToTalent}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {writers.name}
-                </a>
-                &nbsp;
-              </>
-            );
-          });
+          let writerList = Array.isArray(writersListArray)
+            ? writersListArray.map(function (writers) {
+                const pathToTalent = `https://www.imdb.com/name/${writers.id}/?ref_=ttfc_fc_cl_t1`;
+                return (
+                  <>
+                    <a
+                      href={pathToTalent}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {writers.name}
+                    </a>
+                    &nbsp;
+                  </>
+                );
+              })
+            : null;
           return writerList;
         } else return;
       };
@@ -293,11 +306,11 @@ const ImdbSingleSearch = () => {
             </div>
             <div className="content-inner">
               <div className="info-content">
-                <table className="main-body-table">
+                <table className={`main-body-table-${props.themeType}`}>
                   <tbody>
                     <tr>
                       <td style={{ width: "30%" }}>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Release date</b>
                         </span>
                       </td>
@@ -314,7 +327,7 @@ const ImdbSingleSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Release year</b>
                         </span>
                       </td>
@@ -322,7 +335,7 @@ const ImdbSingleSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Runtime</b>
                         </span>
                       </td>
@@ -339,7 +352,7 @@ const ImdbSingleSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Company Credits</b>
                         </span>
                       </td>
@@ -351,7 +364,7 @@ const ImdbSingleSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Companies</b>
                         </span>
                       </td>
@@ -359,7 +372,7 @@ const ImdbSingleSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Cast & Crew</b>
                         </span>
                       </td>
@@ -371,7 +384,7 @@ const ImdbSingleSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Technical Specs</b>
                         </span>
                       </td>
@@ -383,7 +396,7 @@ const ImdbSingleSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Filming & Production</b>
                         </span>
                       </td>
@@ -397,7 +410,7 @@ const ImdbSingleSearch = () => {
                 </table>
                 {seriesResult.seasons ? (
                   <p>
-                    <span className="title-first">
+                    <span className={`title-first-${props.themeType}`}>
                       <b>Seasons</b>:&nbsp;
                     </span>{" "}
                     {seriesResult.totalSeasons}
@@ -409,14 +422,14 @@ const ImdbSingleSearch = () => {
                 {seriesResult.tvSeriesInfo !== null ? (
                   <div className="dropdown">
                     <button className="dropbtn">Seasons</button>
-                    <div className="dropdown-content">
+                    <div className={`dropdown-content-${props.themeType}`}>
                       {renderSeasonDropdownItems()}
                     </div>
                   </div>
                 ) : null}
                 {seriesResult.tvSeriesInfo !== null ? (
                   <button
-                    className="prev-season-btn"
+                    className={`prev-season-btn-${props.themeType}`}
                     onClick={() => setModalShow(true)}
                   >
                     open previous season
@@ -425,11 +438,11 @@ const ImdbSingleSearch = () => {
               </div>
 
               <div className="info-content">
-                <table className="main-body-table">
+                <table className={`main-body-table-${props.themeType}`}>
                   <tbody>
                     <tr>
                       <td style={{ width: "20%" }}>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>IMDB ID</b>
                         </span>
                       </td>
@@ -439,7 +452,7 @@ const ImdbSingleSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Countries</b>
                         </span>
                       </td>
@@ -447,7 +460,7 @@ const ImdbSingleSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Directors</b>
                         </span>
                       </td>
@@ -455,7 +468,7 @@ const ImdbSingleSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Writers</b>
                         </span>
                       </td>
@@ -463,7 +476,7 @@ const ImdbSingleSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Actors</b>
                         </span>
                       </td>
@@ -471,7 +484,7 @@ const ImdbSingleSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Language</b>
                         </span>
                       </td>
@@ -479,7 +492,7 @@ const ImdbSingleSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Genre</b>
                         </span>
                       </td>
@@ -487,7 +500,7 @@ const ImdbSingleSearch = () => {
                     </tr>
                     <tr>
                       <td>
-                        <span className="title-first">
+                        <span className={`title-first-${props.themeType}`}>
                           <b>Synopsis</b>
                         </span>
                       </td>
@@ -523,7 +536,7 @@ const ImdbSingleSearch = () => {
           ) {
             //   console.log(`${key}: ${value.url}`);
             return (
-              <tr id="external-site-table-tr">
+              <tr id={`external-site-table-tr-${props.themeType}`}>
                 <td>{k}</td>
                 <td className="primary-photo">
                   <a href={value.url} target="_blank" rel="noopener noreferrer">
@@ -543,29 +556,35 @@ const ImdbSingleSearch = () => {
   const renderTalentDisplay = () => {
     if (seriesResult) {
       let talentArray = seriesResult.actorList;
-      let cardReturn = talentArray.map(function (talentInfo) {
-        const pathToTalent = `https://www.imdb.com/name/${talentInfo.id}/?ref_=ttfc_fc_cl_t1`;
-        return (
-          <tr id="talent-table-tr">
-            <td className="primary-photo">
-              <img
-                src={talentInfo.image}
-                alt={talentInfo.name}
-                className="talent-table-img"
-              />
-            </td>
-            <td>
-              <a href={pathToTalent} target="_blank" rel="noopener noreferrer">
-                {talentInfo.name}
-              </a>
-            </td>
-            <td>
-              <span>{talentInfo.asCharacter}</span>
-            </td>
-            <td>{talentInfo.id}</td>
-          </tr>
-        );
-      });
+      let cardReturn = Array.isArray(talentArray)
+        ? talentArray.map(function (talentInfo) {
+            const pathToTalent = `https://www.imdb.com/name/${talentInfo.id}/?ref_=ttfc_fc_cl_t1`;
+            return (
+              <tr id={`talent-table-tr-${props.themeType}`}>
+                <td className="primary-photo">
+                  <img
+                    src={talentInfo.image}
+                    alt={talentInfo.name}
+                    className="talent-table-img"
+                  />
+                </td>
+                <td>
+                  <a
+                    href={pathToTalent}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {talentInfo.name}
+                  </a>
+                </td>
+                <td>
+                  <span>{talentInfo.asCharacter}</span>
+                </td>
+                <td>{talentInfo.id}</td>
+              </tr>
+            );
+          })
+        : null;
       return cardReturn;
     } else if (seriesResult.length <= 0) {
       return null;
@@ -578,7 +597,7 @@ const ImdbSingleSearch = () => {
       let seasonsData = seasonArray.map(function (seasonInfo) {
         const pathToEpisode = `https://www.imdb.com/title/${seasonInfo.id}/`;
         return (
-          <tr id="talent-table-tr">
+          <tr id={`talent-table-tr-${props.themeType}`}>
             <td>
               {" "}
               <img
@@ -613,14 +632,14 @@ const ImdbSingleSearch = () => {
             type="text"
             placeholder="Paste IMDB ID"
             onChange={getInputValue}
-            className="input-bar"
+            className={`input-bar-${props.themeType}`}
           />
           {respError ? (
             <Alert variant="danger" className="alerts">
               {respError}
             </Alert>
           ) : null}
-          <button type="submit" className="submit-button">
+          <button type="submit" className={`submit-button-${props.themeType}`}>
             Search
           </button>
         </form>
@@ -641,10 +660,10 @@ const ImdbSingleSearch = () => {
                   &times;
                 </span>
               </div>
-              <div className="custom-modal-body">
-                <table className="season-table">
+              <div className={`custom-modal-body-${props.themeType}`}>
+                <table className={`season-table-${props.themeType}`}>
                   <thead>
-                    <tr id="season-table-tr">
+                    <tr id={`season-table-tr-${props.themeType}`}>
                       <th>Image</th>
                       <th>Season</th>
                       <th>Episode</th>
@@ -673,17 +692,19 @@ const ImdbSingleSearch = () => {
         </div>
       ) : null}
       {mainDisp ? (
-        <div className="md-border-padding">{renderMainDisplay()}</div>
+        <div className={`md-border-padding-${props.themeType}`}>
+          {renderMainDisplay()}
+        </div>
       ) : null}
       {thirdPartyShow ? (
-        <div className="md-border-padding">
-          <h2 className="main-title-header">- External Sites -</h2>
+        <div className={`md-border-padding-${props.themeType}`}>
+          <h2 className={`main-title-header-${props.themeType}`}>- External Sites -</h2>
           <form onSubmit={handleSubmit} className="third-party-search-form">
             <input
               type="text"
               placeholder="Type here to search ..."
               onChange={(e) => setSearch(e.target.value)}
-              className="input-bar"
+              className={`input-bar-${props.themeType}`}
             />
           </form>
           {thirdPartyLoading ? (
@@ -695,7 +716,7 @@ const ImdbSingleSearch = () => {
           ) : (
             <table className="season-table">
               <tbody>
-                <tr id="talent-table-tr">
+                <tr id={`talent-table-tr-${props.themeType}`}>
                   <th className="table-header-30">Website</th>
                   <th>Link</th>
                 </tr>
@@ -706,8 +727,10 @@ const ImdbSingleSearch = () => {
         </div>
       ) : null}
       {talentSectionShow ? (
-        <div className="md-border-padding talent-section-grid">
-          <h2 className="main-title-header">- Series Cast -</h2>
+        <div
+          className={`md-border-padding-${props.themeType} talent-section-grid`}
+        >
+          <h2 className={`main-title-header-${props.themeType}`}>- Series Cast -</h2>
           <p>
             {/* <DownloadTableExcel
               filename={seriesResult.fullTitle}
@@ -718,7 +741,10 @@ const ImdbSingleSearch = () => {
             </DownloadTableExcel> */}
           </p>
           {/* <table className="talent-table" ref={talentTableRef}> */}
-          <table className="talent-table" ref={talentTableRef}>
+          <table
+            className={`talent-table-${props.themeType}`}
+            ref={talentTableRef}
+          >
             <tbody>{renderTalentDisplay()}</tbody>
           </table>
         </div>

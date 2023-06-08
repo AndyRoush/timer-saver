@@ -18,13 +18,24 @@
   overflow: hidden;
 }
 
-.talent-table {
+.talent-table-dark,
+.talent-table-light {
   width: 65%;
   margin: auto;
 }
 
+.season-table-dark,
+.season-table-light,
 .season-table {
   width: 100%;
+}
+
+.season-table-dark {
+  color: #eee;
+}
+
+.season-table-light {
+  color: #393e46;
 }
 
 .talent-table-img {
@@ -37,24 +48,46 @@
   height: 48px;
 }
 
-#talent-table-tr:nth-child(odd),
-#external-site-table-tr:nth-child(odd) {
+#talent-table-tr-dark:nth-child(odd),
+#external-site-table-tr-dark:nth-child(odd) {
   background-color: #2e3642;
 }
 
-#talent-table-tr td {
+#talent-table-tr-light:nth-child(odd),
+#external-site-table-tr-light:nth-child(odd) {
+  background-color: #f0f0f0;
+}
+
+/* #season-table-tr-light:nth-child(even) {
+  background-color: #eee;
+}
+#season-table-tr-light:nth-child(even) {
+  background-color: #f0f0f0;
+} */
+
+#talent-table-tr-dark td,
+#talent-table-tr-light td {
   padding: 1px 10px;
 }
 
-#external-site-table-tr td {
+#external-site-table-tr-dark td,
+#external-site-table-tr-light td {
   padding: 6px 10px;
 }
 
-#talent-table-tr th,
-#external-site-table-tr th,
-#season-table-tr th {
+#talent-table-tr-dark th,
+#external-site-table-tr-dark th,
+#season-table-tr-dark th {
   padding: 6px 10px;
   color: #ffc045;
+  font-weight: 500;
+}
+
+#talent-table-tr-light th,
+#external-site-table-tr-light th,
+#season-table-tr-light th {
+  padding: 6px 10px;
+  color: #eb6b0a;
   font-weight: 500;
 }
 
@@ -76,7 +109,7 @@
   padding: 1px 0 10px 0;
 }
 
-.prev-season-btn {
+.prev-season-btn-dark {
   background-color: transparent;
   border: 1px solid #00adb5;
   color: #eeeeee;
@@ -88,12 +121,30 @@
   transition: 0.1s linear;
 }
 
-.prev-season-btn:hover {
-  background-color: #00adb5;
+.prev-season-btn-light {
+  background-color: transparent;
+  border: 1px solid #00adb5;
+  color: #393e46;
+  padding: 4px 25px;
+  font-size: 16px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 2px;
   transition: 0.1s linear;
 }
 
-.prev-season-btn,
+.prev-season-btn-dark:hover {
+  background-color: #00adb5;
+  transition: 0.1s linear;
+}
+.prev-season-btn-light:hover {
+  background-color: #00adb5;
+  transition: 0.1s linear;
+  color: #eee;
+}
+
+.prev-season-btn-dark,
+.prev-season-btn-light,
 .dropdown {
   margin-top: 5px;
 }
@@ -117,7 +168,7 @@
 }
 
 /* Dropdown Content (Hidden by Default) */
-.dropdown-content {
+.dropdown-content-dark {
   display: none;
   position: absolute;
   background-color: #2e3642;
@@ -127,20 +178,42 @@
   max-height: 420px;
   overflow: auto;
 }
+.dropdown-content-light {
+  display: none;
+  position: absolute;
+  background-color: #eeeeee;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  max-height: 420px;
+  overflow: auto;
+}
 
 /* Links inside the dropdown */
-.dropdown-content span {
+.dropdown-content-dark span {
   color: #eeeeee;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content-light span {
+  color: #393e46;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content span:hover {
+.dropdown-content-dark span:hover {
   background-color: #3b4655;
   cursor: pointer;
   color: #eeeeee;
+}
+
+.dropdown-content-light span:hover {
+  background-color: #dadada;
+  cursor: pointer;
+  color: #393e46;
 }
 
 /* Show the dropdown menu on hover */
@@ -179,8 +252,12 @@
 }
 
 /* Modal Body */
-.custom-modal-body {
+.custom-modal-body-dark {
   background: #222831;
+  color: #eeeeee;
+}
+.custom-modal-body-light {
+  background: #fff;
   color: #eeeeee;
 }
 
@@ -268,16 +345,21 @@
   margin-bottom: 8px;
 }
 
-.main-body-table tbody tr td a {
+.main-body-table-dark tbody tr td a,
+.main-body-table-light tbody tr td a {
   margin-left: 0;
 }
 
-.main-body-table tbody tr td {
+.main-body-table-dark tbody tr td,
+.main-body-table-light tbody tr td {
   padding: 0 5px;
 }
 
-.main-body-table tbody tr:hover {
+.main-body-table-dark tbody tr:hover {
   background-color: #2e3642;
+}
+.main-body-table-light tbody tr:hover {
+  background-color: #f0f0f0;
 }
 
 .margin-right {

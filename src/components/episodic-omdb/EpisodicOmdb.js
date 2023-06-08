@@ -58,7 +58,7 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-const EpisodicOmdb = () => {
+const EpisodicOmdb = (props) => {
   const apiKey = process.env.REACT_APP_API_KEY;
 
   // request ops for IMDB API
@@ -397,7 +397,11 @@ const EpisodicOmdb = () => {
     <div>
       <div className="form-wrapper">
         <form onSubmit={handleSubmit}>
-          <input type="text" onChange={getInputValue} className="input-bar" />
+          <input
+            type="text"
+            onChange={getInputValue}
+            className={`input-bar-${props.themeType}`}
+          />
           {respError ? (
             <Alert variant="danger" className="alerts">
               {respError}

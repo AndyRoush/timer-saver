@@ -49,7 +49,7 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-function OmdbApi() {
+function OmdbApi(props) {
   const apiKey = process.env.REACT_APP_API_KEY;
 
   const [inputVal, setInputVal] = useState("");
@@ -201,13 +201,18 @@ function OmdbApi() {
     <div>
       <div className="form-wrapper">
         <form onSubmit={handleSubmit}>
-          <input type="text" onChange={getInputValue} className="input-bar" placeholder="Paste values with a space between" />
+          <input
+            type="text"
+            onChange={getInputValue}
+            className={`input-bar-${props.themeType}`}
+            placeholder="Paste values with a space between"
+          />
           {respError ? (
             <Alert variant="danger" className="alerts">
               {respError}
             </Alert>
           ) : null}
-          <button type="submit" className="submit-button">
+          <button type="submit" className={`submit-button-${props.themeType}`}>
             Search
           </button>
           <p className="search-amount">
