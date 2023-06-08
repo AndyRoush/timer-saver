@@ -215,7 +215,7 @@ function OmdbApi(props) {
           <button type="submit" className={`submit-button-${props.themeType}`}>
             Search
           </button>
-          <p className="search-amount">
+          <p className={`search-amount-${props.themeType}`}>
             You searched for <span className="data-num">{dataNum}</span>
             <span>&nbsp;{dataNum === 1 ? "title" : "titles"}</span>
           </p>
