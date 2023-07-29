@@ -5,6 +5,7 @@ const OmdbTitleSearch = () => {
   return (
     <>
       <p>New page</p>
+      <p>This is from the pc</p>
     </>
   );
 };
