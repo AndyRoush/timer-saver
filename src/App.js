@@ -15,6 +15,7 @@ import OmdbApi from "./components/omdb-api/OmdbApi";
 // import TestEp from "./components/episodic-omdb/TestEp";
 import ImdbSingleSearch from "./components/imdb-api/ImdbSingleSearch";
 import ImdbTalentSearch from "./components/imdb-api/ImdbTalentSearch";
+import OmdbTitleSearch from "./components/omdb-api/OmdbTitleSearch";
 
 // assets
 import sunImg from "./assets/images/sun-img.png";
@@ -81,7 +82,7 @@ function App() {
             />
           </button>
         </div>
-        <Tabs defaultActiveKey="1" centered>
+        <Tabs defaultActiveKey="4" centered>
           <TabPane className={`tab-color-${theme}`} tab="Title Search" key="1">
             <ImdbSingleSearch themeType={theme} changeTheme={setTheme} />
           </TabPane>
@@ -90,6 +91,9 @@ function App() {
           </TabPane>
           <TabPane className={`tab-color-${theme}`} tab="Talent Search" key="3">
             <ImdbTalentSearch themeType={theme} changeTheme={setTheme} />
+          </TabPane>
+          <TabPane className={`tab-color-${theme}`} tab="OMDB Title Search" key="4">
+            <OmdbTitleSearch themeType={theme} changeTheme={setTheme} />
           </TabPane>
           {/* <TabPane tab="IMDB-API" key="3">
           <ImdbApi />
