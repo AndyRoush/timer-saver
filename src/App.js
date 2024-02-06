@@ -92,9 +92,9 @@ function App() {
           <TabPane className={`tab-color-${theme}`} tab="Talent Search" key="3">
             <ImdbTalentSearch themeType={theme} changeTheme={setTheme} />
           </TabPane>
-          <TabPane className={`tab-color-${theme}`} tab="OMDB Title Search" key="4">
+          {/* <TabPane className={`tab-color-${theme}`} tab="OMDB Title Search" key="4">
             <OmdbTitleSearch themeType={theme} changeTheme={setTheme} />
-          </TabPane>
+          </TabPane> */}
           {/* <TabPane tab="IMDB-API" key="3">
           <ImdbApi />
         </TabPane> */}
