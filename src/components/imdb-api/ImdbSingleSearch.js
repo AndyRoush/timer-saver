@@ -101,7 +101,7 @@ const ImdbSingleSearch = (props) => {
     setNoResults("");
     setRespError("");
     fetch(
-      `https://imdb-api.com/en/API/Title/${apiKey}/${inputVal}`,
+      `https://tv-api.com/en/API/Title/${apiKey}/${inputVal}`,
       requestOptions
     )
       .then(handleErrors)
@@ -133,7 +133,7 @@ const ImdbSingleSearch = (props) => {
     e.preventDefault();
     setModalContentLoading(true);
     fetch(
-      `https://imdb-api.com/en/API/SeasonEpisodes/${apiKey}/${id}/${snumber}`,
+      `https://tv-api.com/en/API/SeasonEpisodes/${apiKey}/${id}/${snumber}`,
       requestOptions
     )
       .then(handleErrors)
@@ -151,7 +151,7 @@ const ImdbSingleSearch = (props) => {
     e.preventDefault();
     setThirdPartyLoading(true);
     fetch(
-      `https://imdb-api.com/en/API/ExternalSites/${apiKey}/${id}`,
+      `https://tv-api.com/en/API/ExternalSites/${apiKey}/${id}`,
       requestOptions
     )
       .then(handleErrors)

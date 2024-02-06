@@ -4,7 +4,7 @@ const Usage = () => {
   const [fetchedData, setFetchedData] = useState("");
   const apiKey = process.env.REACT_APP_IMDB_KEY;
 
-  const url = `https://imdb-api.com/API/Usage/${apiKey}`;
+  const url = `https://tv-api.com/API/Usage/${apiKey}`;
 
   // request ops for IMDB API
   const requestOptions = {

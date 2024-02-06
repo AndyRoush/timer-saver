@@ -89,7 +89,7 @@ function Episodic() {
     setNoResults("");
     setRespError("");
     fetch(
-      `https://imdb-api.com/en/API/Title/${apiKey}/${inputVal}`,
+      `https://tv-api.com/en/API/Title/${apiKey}/${inputVal}`,
       requestOptions
     )
       // .then(handleErrors)
@@ -110,7 +110,7 @@ function Episodic() {
     setLoading(true);
     seasonNums.map((s, i) => {
       fetch(
-        `https://imdb-api.com/en/API/SeasonEpisodes/${apiKey}/${imdbId}/${s}`,
+        `https://tv-api.com/en/API/SeasonEpisodes/${apiKey}/${imdbId}/${s}`,
         requestOptions
       )
         // .then(handleErrors)

@@ -92,7 +92,7 @@ const ImdbTalentSearch = (props) => {
     // Set these 2 to emptry strings. If you don't, the errors will persist through the next search.
     setRespError("");
     fetch(
-      `https://imdb-api.com/en/API/Name/${apiKey}/${inputVal}`,
+      `https://tv-api.com/en/API/Name/${apiKey}/${inputVal}`,
       requestOptions
     )
       .then(handleErrors)

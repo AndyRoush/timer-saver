@@ -91,7 +91,7 @@ const ImdbApi = () => {
   //   let arrayBuilder = [];
   //   dArray.map((d) => {
   //     return fetch(
-  //       `https://imdb-api.com/en/API/Title/${apiKey}/${d}`,
+  //       `https://tv-api.com/en/API/Title/${apiKey}/${d}`,
   //       requestOptions
   //     )
   //       .then(handleErrors)
@@ -119,7 +119,7 @@ const ImdbApi = () => {
     let arrayBuilder = [];
     dArray.map((d) => {
       return fetch(
-        `https://imdb-api.com/en/API/Title/${apiKey}/${d}`,
+        `https://tv-api.com/en/API/Title/${apiKey}/${d}`,
         requestOptions
       )
         .then(handleErrors)
