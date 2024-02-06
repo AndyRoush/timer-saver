@@ -1,34 +1,21 @@
 {
   "files": {
-    "main.css": "/timer-saver/static/css/main.ccda943a.chunk.css",
-    "main.js": "/timer-saver/static/js/main.b10ea7d9.chunk.js",
-    "main.js.map": "/timer-saver/static/js/main.b10ea7d9.chunk.js.map",
-    "runtime-main.js": "/timer-saver/static/js/runtime-main.edc3080d.js",
-    "runtime-main.js.map": "/timer-saver/static/js/runtime-main.edc3080d.js.map",
-    "static/css/2.e51d0e65.chunk.css": "/timer-saver/static/css/2.e51d0e65.chunk.css",
-    "static/js/2.561f1cec.chunk.js": "/timer-saver/static/js/2.561f1cec.chunk.js",
-    "static/js/2.561f1cec.chunk.js.map": "/timer-saver/static/js/2.561f1cec.chunk.js.map",
-    "static/js/3.ff73d176.chunk.js": "/timer-saver/static/js/3.ff73d176.chunk.js",
-    "static/js/3.ff73d176.chunk.js.map": "/timer-saver/static/js/3.ff73d176.chunk.js.map",
-    "static/js/4.2814794f.chunk.js": "/timer-saver/static/js/4.2814794f.chunk.js",
-    "static/js/4.2814794f.chunk.js.map": "/timer-saver/static/js/4.2814794f.chunk.js.map",
-    "static/js/5.ef5ae9d1.chunk.js": "/timer-saver/static/js/5.ef5ae9d1.chunk.js",
-    "static/js/5.ef5ae9d1.chunk.js.map": "/timer-saver/static/js/5.ef5ae9d1.chunk.js.map",
-    "static/js/6.c6e16831.chunk.js": "/timer-saver/static/js/6.c6e16831.chunk.js",
-    "static/js/6.c6e16831.chunk.js.map": "/timer-saver/static/js/6.c6e16831.chunk.js.map",
+    "main.css": "/timer-saver/static/css/main.ddb33c03.css",
+    "main.js": "/timer-saver/static/js/main.f7e2df3d.js",
+    "static/js/300.9a9ff91d.chunk.js": "/timer-saver/static/js/300.9a9ff91d.chunk.js",
+    "static/js/952.59cb1767.chunk.js": "/timer-saver/static/js/952.59cb1767.chunk.js",
+    "static/js/500.1396bf32.chunk.js": "/timer-saver/static/js/500.1396bf32.chunk.js",
+    "static/js/592.462d00ab.chunk.js": "/timer-saver/static/js/592.462d00ab.chunk.js",
     "index.html": "/timer-saver/index.html",
-    "static/css/2.e51d0e65.chunk.css.map": "/timer-saver/static/css/2.e51d0e65.chunk.css.map",
-    "static/css/main.ccda943a.chunk.css.map": "/timer-saver/static/css/main.ccda943a.chunk.css.map",
-    "static/js/2.561f1cec.chunk.js.LICENSE.txt": "/timer-saver/static/js/2.561f1cec.chunk.js.LICENSE.txt",
-    "static/js/3.ff73d176.chunk.js.LICENSE.txt": "/timer-saver/static/js/3.ff73d176.chunk.js.LICENSE.txt",
-    "static/js/4.2814794f.chunk.js.LICENSE.txt": "/timer-saver/static/js/4.2814794f.chunk.js.LICENSE.txt",
-    "static/js/5.ef5ae9d1.chunk.js.LICENSE.txt": "/timer-saver/static/js/5.ef5ae9d1.chunk.js.LICENSE.txt"
+    "main.ddb33c03.css.map": "/timer-saver/static/css/main.ddb33c03.css.map",
+    "main.f7e2df3d.js.map": "/timer-saver/static/js/main.f7e2df3d.js.map",
+    "300.9a9ff91d.chunk.js.map": "/timer-saver/static/js/300.9a9ff91d.chunk.js.map",
+    "952.59cb1767.chunk.js.map": "/timer-saver/static/js/952.59cb1767.chunk.js.map",
+    "500.1396bf32.chunk.js.map": "/timer-saver/static/js/500.1396bf32.chunk.js.map",
+    "592.462d00ab.chunk.js.map": "/timer-saver/static/js/592.462d00ab.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.edc3080d.js",
-    "static/css/2.e51d0e65.chunk.css",
-    "static/js/2.561f1cec.chunk.js",
-    "static/css/main.ccda943a.chunk.css",
-    "static/js/main.b10ea7d9.chunk.js"
+    "static/css/main.ddb33c03.css",
+    "static/js/main.f7e2df3d.js"
   ]
 }
