@@ -698,7 +698,7 @@ const ImdbSingleSearch = (props) => {
       ) : null}
       {thirdPartyShow ? (
         <div className={`md-border-padding-${props.themeType}`}>
-          <h2 className={`main-title-header-${props.themeType}`}>- External Sites -</h2>
+          <h2 className={`main-title-header-${props.themeType}`}>External Sites</h2>
           <form onSubmit={handleSubmit} className="third-party-search-form">
             <input
               type="text"
@@ -730,7 +730,7 @@ const ImdbSingleSearch = (props) => {
         <div
           className={`md-border-padding-${props.themeType} talent-section-grid`}
         >
-          <h2 className={`main-title-header-${props.themeType}`}>- Series Cast -</h2>
+          <h2 className={`main-title-header-${props.themeType}`}>Series Cast</h2>
           <p>
             {/* <DownloadTableExcel
               filename={seriesResult.fullTitle}
