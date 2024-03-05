@@ -3,14 +3,12 @@ import * as XLSX from 'xlsx';
 
 // name, bday, death date, height, known for, role, summary, img and img link, imdb ID
 
-// Placeholder for the actual API call
 const fetchApiDataById = async (id) => {
   const requestOptions = {
     method: "GET",
     redirect: "follow",
   };
   const apiKey = process.env.REACT_APP_IMDB_KEY;
-  // Example URL, replace with your actual API endpoint
   const apiUrl = `https://tv-api.com/en/API/Name/${apiKey}/${id}`;
 
   try {
@@ -18,9 +16,8 @@ const fetchApiDataById = async (id) => {
     if (!response.ok) throw new Error("Network response was not ok");
 
     const data = await response.json();
-    // Assuming the API returns data in a format that includes the id and some data
-    // return console.log(data); // Adjust according to your actual API response structure
-    return data; // Adjust according to your actual API response structure
+
+    return data;
   } catch (error) {
     console.error("Fetch error:", error);
     throw error; // Rethrow to handle it in the calling function
