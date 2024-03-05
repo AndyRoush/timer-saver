@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/timer-saver/static/css/main.ddb33c03.css",
-    "main.js": "/timer-saver/static/js/main.63ea0d5b.js",
+    "main.js": "/timer-saver/static/js/main.042f3390.js",
     "static/js/300.9a9ff91d.chunk.js": "/timer-saver/static/js/300.9a9ff91d.chunk.js",
     "static/js/952.59cb1767.chunk.js": "/timer-saver/static/js/952.59cb1767.chunk.js",
     "static/js/500.1396bf32.chunk.js": "/timer-saver/static/js/500.1396bf32.chunk.js",
     "static/js/592.462d00ab.chunk.js": "/timer-saver/static/js/592.462d00ab.chunk.js",
     "index.html": "/timer-saver/index.html",
     "main.ddb33c03.css.map": "/timer-saver/static/css/main.ddb33c03.css.map",
-    "main.63ea0d5b.js.map": "/timer-saver/static/js/main.63ea0d5b.js.map",
+    "main.042f3390.js.map": "/timer-saver/static/js/main.042f3390.js.map",
     "300.9a9ff91d.chunk.js.map": "/timer-saver/static/js/300.9a9ff91d.chunk.js.map",
     "952.59cb1767.chunk.js.map": "/timer-saver/static/js/952.59cb1767.chunk.js.map",
     "500.1396bf32.chunk.js.map": "/timer-saver/static/js/500.1396bf32.chunk.js.map",
@@ -16,6 +16,6 @@
   },
   "entrypoints": [
     "static/css/main.ddb33c03.css",
-    "static/js/main.63ea0d5b.js"
+    "static/js/main.042f3390.js"
   ]
 }
