@@ -83,17 +83,17 @@ function App() {
             />
           </button>
         </div>
-        <Tabs defaultActiveKey="4" centered>
-          <TabPane className={`tab-color-${theme}`} tab="Title Search" key="1">
+        <Tabs defaultActiveKey="1" centered>
+          <TabPane className={`tab-color-${theme}`} tab="Single Title" key="1">
             <ImdbSingleSearch themeType={theme} changeTheme={setTheme} />
           </TabPane>
-          <TabPane className={`tab-color-${theme}`} tab="Bulk Search" key="2">
+          <TabPane className={`tab-color-${theme}`} tab="Bulk Title" key="2">
             <OmdbApi themeType={theme} changeTheme={setTheme} />
           </TabPane>
-          <TabPane className={`tab-color-${theme}`} tab="Talent Search" key="3">
+          <TabPane className={`tab-color-${theme}`} tab="Single Talent" key="3">
             <ImdbTalentSearch themeType={theme} changeTheme={setTheme} />
           </TabPane>
-          <TabPane className={`tab-color-${theme}`} tab="Talent bulk" key="4">
+          <TabPane className={`tab-color-${theme}`} tab="Bulk Talent" key="4">
             <ImdbTalentSearchBulk themeType={theme} changeTheme={setTheme} />
           </TabPane>
           {/* <TabPane className={`tab-color-${theme}`} tab="OMDB Title Search" key="4">

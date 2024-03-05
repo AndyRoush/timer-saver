@@ -64,6 +64,7 @@ const ImdbTalentSearchBulk = (props) => {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
+            className={`input-bar-${props.themeType}`}
             value={idsInput}
             onChange={(e) => setIdsInput(e.target.value)}
             placeholder="Enter IDs separated by space"
@@ -83,8 +84,8 @@ const ImdbTalentSearchBulk = (props) => {
                 <th>Name</th>
                 <th>ID</th>
                 <th>Birth Date</th>
-                <th>Height</th>
                 <th>Death Date</th>
+                <th>Height</th>
                 <th>Known For</th>
                 <th>Role</th>
                 <th style={{display: "none"}}>img link</th>
@@ -103,8 +104,8 @@ const ImdbTalentSearchBulk = (props) => {
                   <td>{result.name}</td>
                   <td>{result.id}</td>
                   <td>{result.birthDate}</td>
-                  <td>{result.height}</td>
                   <td>{result.deathDate}</td>
+                  <td>{result.height}</td>
                   <td>
                     {result.knownFor.map((ids, index) => {
                       return (

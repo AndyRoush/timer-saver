@@ -329,7 +329,7 @@ const ImdbTalentSearch = (props) => {
         <div
           className={`md-border-padding-${props.themeType} talent-section-grid`}
         >
-          <h2 className={`main-title-header-${props.themeType}`}>- Known For -</h2>
+          <h2 className={`main-title-header-${props.themeType}`}>Known For</h2>
           <p>
             {/* <DownloadTableExcel
               filename={talentResult.fullTitle}
@@ -348,7 +348,7 @@ const ImdbTalentSearch = (props) => {
         <div
           className={`md-border-padding-${props.themeType} talent-section-grid talent-section-grid`}
         >
-          <h2 className={`main-title-header-${props.themeType}`}>- Cast Movies -</h2>
+          <h2 className={`main-title-header-${props.themeType}`}>Cast Movies</h2>
           <p>
             {/* <DownloadTableExcel
               filename={talentResult.fullTitle}
